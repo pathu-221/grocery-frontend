@@ -8,7 +8,7 @@ const ProductDetails: FC<ProductDetailsProps> = () => {
     return (
 			<div className="product shadow-media text-center">
 				<figure className="product-media">
-					<Link to="/product">
+					<a href="/product">
 						<img
 							src="images/products/295x369.jpg"
 							alt="product"
@@ -21,7 +21,7 @@ const ProductDetails: FC<ProductDetailsProps> = () => {
 							width="295"
 							height="369"
 						/>
-					</Link>
+					</a>
 					<div className="product-label-group">
 						<label className="product-label label-sale">-40%</label>
 					</div>

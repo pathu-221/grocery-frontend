@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface CartDropDownProps {}
 
@@ -64,9 +65,9 @@ const CartDropDown: FC<CartDropDownProps> = () => {
                                 </div>
                                 {/* <!-- End of Cart Total --> */}
                                 <div className="cart-action">
-                                    <a href="cart.html" className="btn btn-outline btn-dim mb-2">View
+                                    <a href="/cart" className="btn btn-outline btn-dim mb-2">View
                                         Cart</a>
-                                    <a href="checkout.html" className="btn btn-dim"><span>Go To Checkout</span></a>
+                                    <a href="/checkout" className="btn btn-dim"><span>Go To Checkout</span></a>
                                 </div>
                                 {/* <!-- End of Cart Action --> */}
                             </div>

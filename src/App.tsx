@@ -7,6 +7,8 @@ import HomePage from "./pages/Home.tsx";
 import ShopPage from "./pages/Shop.tsx";
 import ProductDetailPage from "./pages/ProductDetail.tsx";
 import CartPage from "./pages/Cart.tsx";
+import CheckoutPage from "./pages/Checkout.tsx";
+import OrderCompletePage from "./pages/OrderComplete.tsx";
 
 function App() {
 
@@ -21,6 +23,8 @@ function App() {
 						<Route path="/shop" element={<ShopPage />} />
 						<Route path="/product" element={<ProductDetailPage />} />
 						<Route path="/cart" element={<CartPage />} />
+						<Route path="/checkout" element={<CheckoutPage />} />
+						<Route path="/orderComplete" element={<OrderCompletePage />} />
 					</Routes>
 					<MobileMenu />
 					<Footer />
