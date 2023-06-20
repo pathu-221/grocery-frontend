@@ -4,9 +4,9 @@ import ProductGalleryDetails from "../components/ProductDetailPage/ProductGaller
 import ProductContent from "../components/ProductDetailPage/ProductContent";
 import ProductRelated from "../components/ProductDetailPage/ProductRelated";
 
-interface ProductDetailProps {}
+interface ProductDetailPageProps {}
 
-const ProductDetail: FC<ProductDetailProps> = () => {
+const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 	return (
 		<main className="main single-product">
 			{/** top small nav */}
@@ -55,17 +55,17 @@ const ProductDetail: FC<ProductDetailProps> = () => {
 					<div className="product product-single product-simple row mb-8">
 						<div className="col-md-7">
 							<ProductGallery />
-                        </div>
-                        <div className="col-md-5">
-                           <ProductGalleryDetails />
-                        </div>
-                    </div>
-                    <ProductContent />
-                </div>
-                <ProductRelated />
+						</div>
+						<div className="col-md-5">
+							<ProductGalleryDetails />
+						</div>
+					</div>
+					<ProductContent />
+				</div>
+				<ProductRelated />
 			</div>
 		</main>
 	);
 };
 
-export default ProductDetail;
+export default ProductDetailPage;
