@@ -1,4 +1,6 @@
 import type { FC } from 'react';
+import { Link } from 'react-router-dom';
+
 
 interface ProductDetailsProps {}
 
@@ -6,7 +8,7 @@ const ProductDetails: FC<ProductDetailsProps> = () => {
     return (
 			<div className="product shadow-media text-center">
 				<figure className="product-media">
-					<a href="product-simple.html">
+					<Link to="/product">
 						<img
 							src="images/products/295x369.jpg"
 							alt="product"
@@ -19,7 +21,7 @@ const ProductDetails: FC<ProductDetailsProps> = () => {
 							width="295"
 							height="369"
 						/>
-					</a>
+					</Link>
 					<div className="product-label-group">
 						<label className="product-label label-sale">-40%</label>
 					</div>

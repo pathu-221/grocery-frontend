@@ -1,12 +1,11 @@
 import type { FC } from "react";
 import { Link } from "react-router-dom";
 import FilterOptions from "../components/FilterOptions";
-import ProductDetails from "../components/ProductDetails";
+import ProductDetails from "../components/ProductCard";
 
 interface ShopPageProps {}
 
 const ShopPage: FC<ShopPageProps> = () => {
-
 	return (
 		<main className="main">
 			<div

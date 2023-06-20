@@ -1,10 +1,10 @@
 import type { FC } from "react";
-import Banner from "../components/Banner";
-import Benifits from "../components/Benifits";
-import Blogs from "../components/Blogs";
-import Featured from "../components/Featured";
-import NewArrivals from "../components/NewArrivals";
-import TopProducts from "../components/TopProducts";
+import Banner from "../components/HomePage/Banner";
+import Benifits from "../components/HomePage/Benifits";
+import Blogs from "../components/HomePage/Blogs";
+import Featured from "../components/HomePage/Featured";
+import NewArrivals from "../components/HomePage/NewArrivals";
+import TopProducts from "../components/HomePage/TopProducts";
 
 interface HomePageProps {}
 
