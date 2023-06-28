@@ -33,6 +33,7 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 		if (!data.status) return showToast('danger', data.msg);
 
 		showToast('danger', data.msg);
+		localStorage.setItem('token', data.data.token)
 		dispatch(addUser(data.data.user));
 
 	};

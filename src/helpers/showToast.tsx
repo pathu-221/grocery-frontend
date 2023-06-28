@@ -6,15 +6,15 @@ export default function showToast(
 ) {
 
 
-	let icon: string;
+	//let icon: string;
 	switch (type) {
 		case "info":
-		case "danger": icon = 'close'; break;
+		case "danger": //icon = 'close'; break;
 		case "success":
 		case "warning":
 	}
 
-	toast.custom((t) => (
+	toast.custom(() => (
 		<div className={`alert alert-colored alert-${type} alert-icon`}>
 			<i className="p-icon-checked"></i>
 			<h5 className="alert-title">{msg}</h5>

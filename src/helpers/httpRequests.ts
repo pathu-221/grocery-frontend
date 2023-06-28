@@ -2,13 +2,14 @@
 export async function requestWithToken(url: string, options?: RequestInit) {
     const token = localStorage.getItem('token');
 
-    if (!token) return
+    if (!token) return alert('no token');
     
+    console.log({ token })
     const res = await fetch(url, {
         ...options,
         headers: {
             ...options?.headers,
-            'authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
         }
     });
     const data = await res.json();
