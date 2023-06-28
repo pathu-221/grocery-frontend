@@ -120,7 +120,7 @@ const CartTotal: FC<CartTotalProps> = () => {
 							</tr>
 						</table>
 						<a
-							href="checkout.html"
+							href="/checkout"
 							className="btn btn-dim btn-checkout btn-block"
 						>
 							Proceed to checkout

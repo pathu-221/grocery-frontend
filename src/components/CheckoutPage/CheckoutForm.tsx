@@ -1,9 +1,18 @@
 
 import type { FC } from 'react';
+import { placeOrder } from '../../apis/checkout.api';
 
 interface CheckoutFormProps {}
 
 const CheckoutForm: FC<CheckoutFormProps> = () => {
+
+    const checkout =async () => {
+        const data = await placeOrder();
+        if (!data.status) return alert(data.msg);
+        
+        window.location.replace(data.data.paymentUrl);
+    }
+
     return ( <div className="container mt-7">
                     <form action="#" className="form">
                         <div className="row">
@@ -167,7 +176,9 @@ const CheckoutForm: FC<CheckoutFormProps> = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" className="btn btn-dim btn-block mt-6">Place
+                            <button
+                                onClick={() => { checkout()}}
+                                type="button" className="btn btn-dim btn-block mt-6">Place
                                             Order</button>
                                     </div>
                                 </div>
