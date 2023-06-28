@@ -10,6 +10,7 @@ import CartPage from "./pages/Cart.tsx";
 import CheckoutPage from "./pages/Checkout.tsx";
 import OrderCompletePage from "./pages/OrderComplete.tsx";
 import MyAccountPage from "./pages/MyAccount.tsx";
+// import 'tailwindcss/tailwind.css';
 
 function App() {
 
@@ -18,7 +19,6 @@ function App() {
 			<div className="home">
 				<div className="page-wrapper">
 					<Header />
-
 					<Routes>
 						<Route path="/" element={<HomePage />} />
 						<Route path="/shop" element={<ShopPage />} />
@@ -32,6 +32,7 @@ function App() {
 					<Footer />
 				</div>
 			</div>
+			
 		</>
 	);
 }
