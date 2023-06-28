@@ -2,10 +2,30 @@ import type { FC } from "react";
 import { Link } from "react-router-dom";
 import FilterOptions from "../components/FilterOptions";
 import ProductDetails from "../components/ProductCard";
+import { fetchAllProducts } from "../apis/product.api";
+import { useState, useEffect } from 'react';
+import { Product } from "../interfaces/product.interface";
+
 
 interface ShopPageProps {}
 
 const ShopPage: FC<ShopPageProps> = () => {
+
+	const [products, setProducts] = useState<Product[]>();
+
+
+	const loadProducts = async () => {
+		const data = await fetchAllProducts();
+
+		if (!data.status) return
+		
+		setProducts(data.data);
+	}
+
+	useEffect(() => {
+		loadProducts();
+	}, []);
+
 	return (
 		<main className="main">
 			<div
@@ -184,18 +204,11 @@ const ShopPage: FC<ShopPageProps> = () => {
 								</div>
 							</nav>
 							<div className="row product-wrapper cols-lg-4 cols-md-3 cols-2">
-								<ProductDetails />
-								<ProductDetails />
-								<ProductDetails />
-								<ProductDetails />
-								<ProductDetails />
-								<ProductDetails />
-								<ProductDetails />
-								<ProductDetails />
-								<ProductDetails />
-								<ProductDetails />
-								<ProductDetails />
-								<ProductDetails />
+								{
+									products && products.map((product) => (
+										<ProductDetails key={product.id} product={product} />
+									))
+								}
 							</div>
 
 							<nav className="toolbox toolbox-pagination pt-2 pb-6">

@@ -2,9 +2,11 @@
 
 import type { FC } from 'react';
 
-interface ProductGalleryProps {}
+interface ProductGalleryProps {
+	images?: string[]
+}
 
-const ProductGallery: FC<ProductGalleryProps> = () => {
+const ProductGallery: FC<ProductGalleryProps> = ({ }) => {
     return (
 			<div className="product-gallery">
 				<div className="product-single-carousel owl-carousel owl-theme owl-nav-inner row cols-1 gutter-no">

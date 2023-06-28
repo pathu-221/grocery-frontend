@@ -1,13 +1,16 @@
 
 
 import type { FC } from 'react';
+import { Product } from '../../interfaces/product.interface';
 
-interface ProductGalleryDetailsProps {}
+interface ProductGalleryDetailsProps {
+	product?: Product
+}
 
-const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = () => {
+const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
     return (
 			<div className="product-details">
-				<h1 className="product-name">Banana From Indonesia</h1>
+			<h1 className="product-name">{ product?.name || "Banana from indonesia"}</h1>
 				<div className="ratings-container">
 					<div className="ratings-full">
 						<span className="ratings" style={{ width: "60% " }}></span>
@@ -19,7 +22,7 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = () => {
 				</div>
 				<p className="product-price mb-1">
 					<del className="old-price">$24.00</del>
-					<ins className="new-price">$16.00</ins>
+				<ins className="new-price">${ product?.base_price || '18'  }.00</ins>
 				</p>
 				<p className="product-short-desc">
 					Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae

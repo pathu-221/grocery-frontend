@@ -1,12 +1,34 @@
 import type { FC } from "react";
+import { useEffect, useState } from "react";
 import ProductGallery from "../components/ProductDetailPage/ProductGallery";
 import ProductGalleryDetails from "../components/ProductDetailPage/ProductGalleryDetails";
 import ProductContent from "../components/ProductDetailPage/ProductContent";
 import ProductRelated from "../components/ProductDetailPage/ProductRelated";
+import { fetchProductbyId } from "../apis/product.api";
+import { Product } from "../interfaces/product.interface";
 
 interface ProductDetailPageProps {}
 
 const ProductDetailPage: FC<ProductDetailPageProps> = () => {
+	const queryParams = new URLSearchParams(window.location.search);
+	const productId = queryParams.get('productId');
+	const [product, setProduct] = useState<Product>();
+
+
+	useEffect(() => {
+		if (productId) loadProductDetail(productId);
+		
+	}, []);
+
+	const loadProductDetail = async (productId: string) => {
+		const data = await fetchProductbyId(productId);
+
+		if (!data.status) return
+		
+		setProduct(data.data);
+
+	}
+
 	return (
 		<main className="main single-product">
 			{/** top small nav */}
@@ -57,7 +79,7 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 							<ProductGallery />
 						</div>
 						<div className="col-md-5">
-							<ProductGalleryDetails />
+							<ProductGalleryDetails  product={product}/>
 						</div>
 					</div>
 					<ProductContent />
