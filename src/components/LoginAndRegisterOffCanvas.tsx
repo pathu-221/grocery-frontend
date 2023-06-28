@@ -30,9 +30,9 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 		e.preventDefault();
 		const data = await login(formValue);
 
-		if (!data.status) return showToast('error', data.msg);
+		if (!data.status) return showToast('danger', data.msg);
 
-		showToast('success', data.msg);
+		showToast('danger', data.msg);
 		dispatch(addUser(data.data.user));
 
 	};

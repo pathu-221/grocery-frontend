@@ -10,7 +10,8 @@ import CartPage from "./pages/Cart.tsx";
 import CheckoutPage from "./pages/Checkout.tsx";
 import OrderCompletePage from "./pages/OrderComplete.tsx";
 import MyAccountPage from "./pages/MyAccount.tsx";
-// import 'tailwindcss/tailwind.css';
+import { Toaster } from "react-hot-toast";
+//import 'tailwindcss/tailwind.css';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
 		<>
 			<div className="home">
 				<div className="page-wrapper">
+					<Toaster position="bottom-right" />
 					<Header />
 					<Routes>
 						<Route path="/" element={<HomePage />} />
@@ -32,7 +34,6 @@ function App() {
 					<Footer />
 				</div>
 			</div>
-			
 		</>
 	);
 }
