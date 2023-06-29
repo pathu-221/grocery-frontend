@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { Product } from "../../interfaces/product.interface";
-import { addItemToCart } from "../../apis/cart.api";
-import showToast from "../../helpers/showToast";
+import { addToCart as addToCartApi } from "../../redux/cart/cartThunk";
+import { useAppDispatch } from "../../redux/store";
 
 interface ProductGalleryDetailsProps {
 	product?: Product;
@@ -9,12 +9,10 @@ interface ProductGalleryDetailsProps {
 
 const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 
+	const dispatch = useAppDispatch();
 	const addToCart = async () => {
 		if (!product) return
-		
-		const data = await addItemToCart(product?.id);
-		showToast('success', data.msg);
-		console.log({ data });
+		dispatch(addToCartApi(product.id))
 	}
 
 	return (

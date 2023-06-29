@@ -1,28 +1,25 @@
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootState, useAppDispatch } from "../redux/store";
+import { deleteFromCart, getCartItems } from "../redux/cart/cartThunk";
 
 interface CartDropDownProps {}
 
 const CartDropDown: FC<CartDropDownProps> = () => {
+	
 	const { cartItems } = useSelector((state: RootState) => state.cart)
-
+	const dispatch = useAppDispatch();
 	const [cartTotal, setCartTotal] = useState<number>();
 
 	useEffect(() => {
-		loadCartItems();
+		dispatch(getCartItems());
 	}, []);
 
 	useEffect(() => {
 		calculateTotal();
 	}, [cartItems]);
 
-	const loadCartItems = async () => {
-		// const data = await fetchAllCartItems();
-		// if (!data.status) return alert(data.msg);
-		// setCartItems(data.data);
-	};
 
 	const calculateTotal = () => {
 		let total = 0;
@@ -36,7 +33,7 @@ const CartDropDown: FC<CartDropDownProps> = () => {
 		<div className="dropdown cart-dropdown off-canvas mr-0 mr-lg-2">
 			<a href="#" className="cart-toggle link">
 				<i className="p-icon-cart-solid">
-					<span className="cart-count">2</span>
+					<span className="cart-count">{cartItems ? cartItems.length : 0 }</span>
 				</i>
 			</a>
 			<div className="canvas-overlay"></div>
@@ -61,7 +58,12 @@ const CartDropDown: FC<CartDropDownProps> = () => {
 											height="105"
 										/>
 									</a>
-									<a href="#" title="Remove Product" className="btn-remove">
+									<a href="#"
+										onClick={() => {
+											dispatch(deleteFromCart(item.id));
+											dispatch(getCartItems());
+										}}
+										title="Remove Product" className="btn-remove">
 										<i className="p-icon-times"></i>
 										<span className="sr-only">Close</span>
 									</a>

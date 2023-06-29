@@ -1,9 +1,14 @@
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getCartItems } from "../../redux/cart/cartThunk";
+import {
+	deleteFromCart,
+	getCartItems,
+	updateCart,
+} from "../../redux/cart/cartThunk";
 import { RootState, useAppDispatch } from "../../redux/store";
 import CartTotal from "./CartTotals";
+import { addItem, removeItem } from "../../redux/cart/cartSlice";
 
 interface CartProductsProps {}
 
@@ -14,6 +19,7 @@ const CartProducts: FC<CartProductsProps> = () => {
 
 	useEffect(() => {
 		loadCartItems();
+		console.log({ cartItems });
 	}, []);
 
 	useEffect(() => {
@@ -34,6 +40,24 @@ const CartProducts: FC<CartProductsProps> = () => {
 		setCartTotal(total);
 	};
 
+	const removeProduct = async (productId: string) => {
+		await dispatch(deleteFromCart(productId));
+		await dispatch(getCartItems());
+	};
+
+	const updateCartItems = async () => {
+		cartItems?.map(async (item) => {
+			await dispatch(
+				updateCart({
+					carItemId: item.id,
+					formData: {
+						quantity: item.quantity,
+					},
+				})
+			);
+		});
+		dispatch(getCartItems());
+	};
 	return (
 		<div className="container mt-7 mb-2">
 			<div className="row">
@@ -84,16 +108,27 @@ const CartProducts: FC<CartProductsProps> = () => {
 										</td>
 										<td className="product-quantity">
 											<div className="input-group">
-												<button className="quantity-minus p-icon-minus-solid"></button>
+												<button
+													className="quantity-minus p-icon-minus-solid"
+													onClick={() => {
+														dispatch(removeItem({ id: cartItem.id }));
+													}}
+												></button>
 												<input
 													className="quantity 
                                                         form-control"
 													type="number"
 													min="1"
 													max="1000000"
-													defaultValue={cartItem.quantity}
+													value={cartItem.quantity}
+													readOnly
 												/>
-												<button className="quantity-plus p-icon-plus-solid"></button>
+												<button
+													className="quantity-plus p-icon-plus-solid"
+													onClick={() => {
+														dispatch(addItem({ id: cartItem.id }));
+													}}
+												></button>
 											</div>
 										</td>
 										<td className="product-price">
@@ -103,9 +138,11 @@ const CartProducts: FC<CartProductsProps> = () => {
 										</td>
 										<td className="product-remove">
 											<a
-												href="#"
 												className="btn-remove"
 												title="Remove this product"
+												onClick={() => {
+													removeProduct(cartItem.id);
+												}}
 											>
 												<i className="p-icon-times"></i>
 											</a>
@@ -118,7 +155,8 @@ const CartProducts: FC<CartProductsProps> = () => {
 						<a href="shop.html" className="btn btn-dim btn-icon-left mr-4 mb-4">
 							<i className="p-icon-arrow-long-left"></i>Continue Shopping
 						</a>
-						<button type="submit" className="btn btn-outline btn-dim">
+						<button type="button" className="btn btn-outline btn-dim"
+						onClick={() => updateCartItems()}>
 							Update Cart
 						</button>
 					</div>

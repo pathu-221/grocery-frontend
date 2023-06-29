@@ -4,7 +4,6 @@ export async function requestWithToken(url: string, options?: RequestInit) {
 
     if (!token) return alert('no token');
     
-    console.log({ token })
     const res = await fetch(url, {
         ...options,
         headers: {

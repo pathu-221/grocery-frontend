@@ -1,6 +1,8 @@
 import type { FC } from "react";
-import { Product } from "../interfaces/product.interface";
 import { useNavigate } from "react-router";
+import { Product } from "../interfaces/product.interface";
+import { addToCart } from "../redux/cart/cartThunk";
+import { useAppDispatch } from "../redux/store";
 
 interface ProductDetailsProps {
 	product?: Product;
@@ -8,12 +10,14 @@ interface ProductDetailsProps {
 
 const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+
 	return (
 		<div className="product shadow-media text-center">
 			<figure className="product-media">
 				<a
 					//this is temporary will switch to href when every product is loaded from database
-					style={{ cursor: 'pointer'}}
+					style={{ cursor: "pointer" }}
 					onClick={() => {
 						navigate({
 							pathname: "/product",
@@ -45,18 +49,11 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 						data-toggle="modal"
 						data-target="#addCartModal"
 						title="Add to Cart"
+						onClick={() => {
+							if (product) dispatch(addToCart(product?.id));
+						}}
 					>
 						<i className="p-icon-cart-solid"></i>
-					</a>
-					<a
-						href="#"
-						className="btn-product-icon btn-wishlist"
-						title="Add to Wishlist"
-					>
-						<i className="p-icon-heart-solid"></i>
-					</a>
-					<a href="#" className="btn-product-icon btn-compare" title="Compare">
-						<i className="p-icon-compare-solid"></i>
 					</a>
 					<a
 						href="#"
@@ -84,7 +81,6 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 					<a href="product-simple.html">{product?.name || "Peanuts"}</a>
 				</h5>
 				<span className="product-price">
-					<del className="old-price">$28.00</del>
 					<ins className="new-price">${product?.base_price || "18.00"}</ins>
 				</span>
 			</div>
