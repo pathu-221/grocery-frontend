@@ -12,20 +12,20 @@ const initialState: UserState = {
 	user: null,
 };
 
-export const counterSlice = createSlice({
+export const userSlice = createSlice({
 	name: "counter",
 	// `createSlice` will infer the state type from the `initialState` argument
 	initialState,
-    reducers: {
-        addUser: (state, action: PayloadAction<User>) => {
-            return {
-                ...state,
-                user: action.payload
-            }
-        }
+	reducers: {
+		addUser: (state, action: PayloadAction<User>) => {
+			return {
+				...state,
+				user: action.payload,
+			};
+		},
 	},
 });
 
-export const { addUser } = counterSlice.actions;
-export const selectUser = (state: RootState) => state.user.user
-export default counterSlice.reducer;
+export const { addUser } = userSlice.actions;
+export const selectUser = (state: RootState) => state.user.user;
+export default userSlice.reducer;
