@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer.tsx";
+import { useEffect } from 'react';
 import Header from "./components/Header.tsx";
 import MobileMenu from "./components/MobileMenu.tsx";
 import HomePage from "./pages/Home.tsx";
@@ -11,9 +12,25 @@ import CheckoutPage from "./pages/Checkout.tsx";
 import OrderCompletePage from "./pages/OrderComplete.tsx";
 import MyAccountPage from "./pages/MyAccount.tsx";
 import { Toaster } from "react-hot-toast";
-//import 'tailwindcss/tailwind.css';
+import { useAppDispatch } from "./redux/store.ts";
+import { authenticate } from "./apis/auth.api.ts";
+import { addUser } from "./redux/user/userSlice.ts";
 
 function App() {
+
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		loadUser();
+	}, []);
+
+	const loadUser =async () => {
+		const data = await authenticate();
+		if (!data.status) return
+		
+		const user = data.data;
+		dispatch(addUser(user));
+	}
 
 	return (
 		<>

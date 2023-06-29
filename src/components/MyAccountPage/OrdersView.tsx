@@ -1,10 +1,20 @@
 import type { FC } from "react";
+import { Order } from "../../interfaces/order.interface";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
-interface OrdersViewProps {}
+interface OrdersViewProps {
+	order: Order;
+	back: () => void
+}
 
-const OrdersView: FC<OrdersViewProps> = () => {
+const OrdersView: FC<OrdersViewProps> = ({ order, back }) => {
+	const user = useSelector((state: RootState) => state.user.user);
+
+	if (!user) return <h1>Sign in to continue</h1>
+	
 	return (
-		<div className="tab-pane order" id="orders-view">
+		<div className="order">
 			<h2 className="title text-left pb-1">Order Details</h2>
 			<div className="order-details">
 				<table className="order-details-table">
@@ -21,42 +31,35 @@ const OrdersView: FC<OrdersViewProps> = () => {
 							<td className="product-subtitle">Product</td>
 							<td></td>
 						</tr>
-						<tr>
-							<td className="product-name">
-								Juice{" "}
-								<span>
-									<i className="p-icon-times"></i>1
-								</span>
-							</td>
-							<td className="product-price">$129.99</td>
-						</tr>
-						<tr>
-							<td className="product-name">
-								Greenhouse Cherry{" "}
-								<span>
-									<i className="p-icon-times"></i>2
-								</span>
-							</td>
-							<td className="product-price">$98.00</td>
-						</tr>
+						{order.order_items.map((orderItem) => (
+							<tr>
+								<td className="product-name">
+									{orderItem.product.name }{" "}
+									<span>
+										<i className="p-icon-times"></i>{ orderItem.product_quantity}
+									</span>
+								</td>
+								<td className="product-price">${ orderItem.product_price }</td>
+							</tr>
+						))}
 						<tr className="summary-subtotal">
 							<td>
 								<h4 className="summary-subtitle">Subtotal:</h4>
 							</td>
-							<td className="summary-value font-weight-normal">$325.99</td>
+							<td className="summary-value font-weight-normal">${ order.grand_total }</td>
 						</tr>
 						<tr className="summary-subtotal">
 							<td>
 								<h4 className="summary-subtitle">Payment method:</h4>
 							</td>
-							<td className="summary-value">Cash on delivery</td>
+							<td className="summary-value">{ order.payment_type }</td>
 						</tr>
 						<tr className="summary-subtotal">
 							<td>
 								<h4 className="summary-subtitle">Total:</h4>
 							</td>
 							<td>
-								<p className="summary-total-price">$325.99</p>
+								<p className="summary-total-price">${ order.grand_total }</p>
 							</td>
 						</tr>
 					</tbody>
@@ -68,15 +71,15 @@ const OrdersView: FC<OrdersViewProps> = () => {
 						<div className="card-body">
 							<h5 className="card-title lh-2 mb-2">Billing Address</h5>
 							<p>
-								John Doe
+								{`${user.first_name} ${user.last_name}`}
 								<br />
-								Panda Company
+								{ order.shipping_address_1 }
 								<br />
-								Steven street
+								{ order.shipping_city}
 								<br />
-								El Carjon, CA 92020
+								{ `${order.shipping_state} - ${order.shipping_zip}`}
 							</p>
-							<p>nicework125@gmail.com</p>
+							<p>{ user.email }</p>
 						</div>
 					</div>
 				</div>
@@ -91,7 +94,11 @@ const OrdersView: FC<OrdersViewProps> = () => {
 			</div>
 
 			<hr className="mt-0 mb-6" />
-			<a href="#orders" className="btn btn-dark btn-sm back-order">
+			<a
+				onClick={() => back()}
+				href="#orders"
+				className="btn btn-dark btn-sm back-order"
+			>
 				<i className="p-icon-arrow-long-left ml-0 mr-1"></i>Back to list
 			</a>
 		</div>

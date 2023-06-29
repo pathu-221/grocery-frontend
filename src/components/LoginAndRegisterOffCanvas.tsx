@@ -48,14 +48,16 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 	const registerFormSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 		const data = await register(registerFormValue);
-		console.log(data, registerFormValue);
+		if (!data.status) alert(data.msg);
+		
+		showToast('success', data.msg);
 	};
 
 	return (
 		<div className="dropdown login-dropdown off-canvas">
 			<a
 				className="login-toggle d-flex flex-column"
-				href="ajax/login.html"
+				href={`${user ? "/myAccount" : "ajax/login.html"}`}
 				data-toggle="login-modal"
 			>
 				<span className="sr-only">login</span>

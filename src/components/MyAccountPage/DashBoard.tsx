@@ -1,16 +1,24 @@
 
 
 import type { FC } from 'react';
+import { User } from '../../interfaces/user.interface';
 
-interface DashboardProps {}
+interface DashboardProps {
+	user: User
+}
 
-const Dashboard: FC<DashboardProps> = () => {
+const Dashboard: FC<DashboardProps> = ({ user }) => {
     return (
 			<div className="tab-pane active" id="dashboard">
 				<p className="mb-0">
-					Hello <span className="font-weight-bold text-secondary">John Doe</span>{" "}
-					(not <span className="font-weight-bold text-secondary">John Doe</span>?{" "}
-					<a href="login.html" className="text-primary">
+					Hello{" "}
+					<span className="font-weight-bold text-secondary">{`${user.first_name} ${user.last_name}`}</span>{" "}
+					(not{" "}
+					<span className="font-weight-bold text-secondary">
+						{`${user.first_name} ${user.last_name}`}
+					</span>
+					?{" "}
+					<a href="/" className="text-primary">
 						Log out
 					</a>
 					)
@@ -46,18 +54,6 @@ const Dashboard: FC<DashboardProps> = () => {
 					</div>
 					<div className="ib-wrapper mb-4">
 						<div className="icon-box text-center ib-border">
-							<a href="#downloads">
-								<span className="icon-box-icon">
-									<i className="p-icon-download"></i>
-								</span>
-								<div className="icon-box-content">
-									<p>DOWNLOADS</p>
-								</div>
-							</a>
-						</div>
-					</div>
-					<div className="ib-wrapper mb-4">
-						<div className="icon-box text-center ib-border">
 							<a href="#address">
 								<span className="icon-box-icon">
 									<i className="p-icon-map"></i>
@@ -76,18 +72,6 @@ const Dashboard: FC<DashboardProps> = () => {
 								</span>
 								<div className="icon-box-content">
 									<p>ACCOUNT DETAILS</p>
-								</div>
-							</a>
-						</div>
-					</div>
-					<div className="ib-wrapper mb-4">
-						<div className="icon-box text-center ib-border">
-							<a href="wishlist.html" className="no-tab-item">
-								<span className="icon-box-icon">
-									<i className="p-icon-heart-solid"></i>
-								</span>
-								<div className="icon-box-content">
-									<p>WISHLIST</p>
 								</div>
 							</a>
 						</div>
