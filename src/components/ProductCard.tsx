@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Product } from "../interfaces/product.interface";
 import { addToCart } from "../redux/cart/cartThunk";
@@ -11,6 +12,11 @@ interface ProductDetailsProps {
 const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
+	const [images, setImages] = useState<string[]>([]);
+	useEffect(() => {
+		if (product?.images) setImages(JSON.parse(product?.images));
+		//if (product?.imag	es) setImages(JSON.parse(product?.images));
+	}, []);
 
 	return (
 		<div className="product shadow-media text-center">
@@ -27,16 +33,15 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 					}}
 				>
 					<img
-						src="images/products/295x369.jpg"
+						src={images[0] || " images/products/295x369.jpg"}
 						alt="product"
-						width="295"
-						height="369"
-					/>
-					<img
-						src="images/products/295x369.jpg"
-						alt="product"
-						width="295"
-						height="369"
+						// width="295px"
+						// height="369px"
+						style={{
+							height: '200px',
+							width: '100%'
+							
+						}}
 					/>
 				</a>
 				<div className="product-label-group">

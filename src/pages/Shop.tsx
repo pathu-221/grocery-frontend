@@ -28,7 +28,7 @@ const ShopPage: FC<ShopPageProps> = () => {
 
 	return (
 		<main className="main">
-			<div
+			{/* <div
 				className="page-header cph-header pl-4 pr-4"
 				style={{ backgroundColor: " #fff7ec" }}
 			>
@@ -139,7 +139,7 @@ const ShopPage: FC<ShopPageProps> = () => {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> */}
 			<nav className="breadcrumb-nav has-border">
 				<div className="container">
 					<ul className="breadcrumb">
@@ -192,10 +192,6 @@ const ShopPage: FC<ShopPageProps> = () => {
 										</select>
 									</div>
 									<div className="toolbox-item toolbox-layout">
-										<a
-											href="shop-list.html"
-											className="p-icon-list btn-layout"
-										></a>
 										<a
 											href="shop-4-cols.html"
 											className="p-icon-grid btn-layout active"

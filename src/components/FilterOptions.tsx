@@ -1,8 +1,26 @@
 import type { FC } from "react";
+import { useState, useEffect } from "react";
+import { Category } from "../interfaces/category.interface";
+import { fetchAllCategories } from "../apis/category.api";
+import showToast from "../helpers/showToast";
 
 interface FilterOptionsProps {}
 
 const FilterOptions: FC<FilterOptionsProps> = () => {
+	const [categories, setCategories] = useState<Category[]>();
+
+
+	useEffect(() => {
+		loadCategories();
+	}, []);
+
+	const loadCategories = async () => {
+		const data = await fetchAllCategories();
+		if (!data.status) return showToast("danger", data.msg);
+
+		setCategories(data.data);
+	};
+
 	return (
 		<aside className="col-lg-3 sidebar widget-sidebar sidebar-fixed sidebar-toggle-remain shop-sidebar sticky-sidebar-wrapper">
 			<div className="sidebar-overlay"></div>
@@ -27,7 +45,7 @@ const FilterOptions: FC<FilterOptionsProps> = () => {
 							</form>
 						</div>
 					</div>
-					<div className="widget widget-collapsible">
+					{/* <div className="widget widget-collapsible">
 						<h3 className="widget-title title-underline">
 							<span className="title-text">Nutrition</span>
 						</h3>
@@ -51,30 +69,19 @@ const FilterOptions: FC<FilterOptionsProps> = () => {
 								<a href="#">Whole Grain</a>
 							</li>
 						</ul>
-					</div>
+					</div> */}
 					<div className="widget widget-collapsible">
 						<h3 className="widget-title title-underline">
-							<span className="title-text">Brand</span>
+							<span className="title-text">Categories</span>
 						</h3>
 						<ul className="widget-body filter-items">
-							<li>
-								<a href="#">Nestle</a>
-							</li>
-							<li>
-								<a href="#">Nescafe</a>
-							</li>
-							<li>
-								<a href="#">Tropicana</a>
-							</li>
-							<li>
-								<a href="#">Coca Cola</a>
-							</li>
-							<li>
-								<a href="#">Benecol</a>
-							</li>
-							<li>
-								<a href="#">Alpro</a>
-							</li>
+							{
+								categories && categories.map((category) => (
+									<li>
+										<a href='#'>{category.name}</a>
+									</li>
+								))
+							}
 						</ul>
 					</div>
 					<div className="widget widget-collapsible">
@@ -146,7 +153,7 @@ const FilterOptions: FC<FilterOptionsProps> = () => {
 							</ul>
 						</div>
 					</div>
-					<div className="widget widget-collapsible">
+					{/* <div className="widget widget-collapsible">
 						<h3 className="widget-title title-underline">
 							<span className="title-text">Product Tags</span>
 						</h3>
@@ -179,7 +186,7 @@ const FilterOptions: FC<FilterOptionsProps> = () => {
 								cholesterol
 							</a>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</aside>

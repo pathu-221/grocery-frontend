@@ -6,7 +6,7 @@ export interface Product {
     description: string;
     base_price:  number;
     quantity:    number;
-    images?:     string[];
+    images:     string;
     status:      number;
     created_at:  string;
     updated_at:  string;
