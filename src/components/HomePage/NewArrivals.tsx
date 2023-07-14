@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import ProductDetails from "../ProductCard";
+import ProductDetails from "../ProductDetails";
 
 interface NewArrivalsProps {}
 

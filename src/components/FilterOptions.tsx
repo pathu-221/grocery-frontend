@@ -4,9 +4,11 @@ import { Category } from "../interfaces/category.interface";
 import { fetchAllCategories } from "../apis/category.api";
 import showToast from "../helpers/showToast";
 
-interface FilterOptionsProps {}
+interface FilterOptionsProps {
+	onClick: (category: string) => void;
+}
 
-const FilterOptions: FC<FilterOptionsProps> = () => {
+const FilterOptions: FC<FilterOptionsProps> = ({ onClick }) => {
 	const [categories, setCategories] = useState<Category[]>();
 
 
@@ -77,7 +79,7 @@ const FilterOptions: FC<FilterOptionsProps> = () => {
 						<ul className="widget-body filter-items">
 							{
 								categories && categories.map((category) => (
-									<li>
+									<li key={category.id} onClick={() => onClick(category.name)}>
 										<a href='#'>{category.name}</a>
 									</li>
 								))

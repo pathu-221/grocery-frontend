@@ -1,8 +1,15 @@
 import { requestWithoutToken } from "../helpers/httpRequests";
 
-export async function fetchAllProducts() {
+export async function fetchAllProducts(
+	category = "",
+	sortBy?: string,
+	perPage = 12,
+	page = 1
+) {
 	const data = await requestWithoutToken(
-		`${import.meta.env.VITE_API_ADDRESS}/product`
+		`${
+			import.meta.env.VITE_API_ADDRESS
+		}/product/?category=${category}&sortBy=${sortBy}&perPage=${perPage}&page=${page}`
 	);
 	return data;
 }

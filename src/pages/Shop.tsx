@@ -1,30 +1,79 @@
 import type { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FilterOptions from "../components/FilterOptions";
-import ProductDetails from "../components/ProductCard";
+import ProductDetails from "../components/ProductDetails";
 import { fetchAllProducts } from "../apis/product.api";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { Product } from "../interfaces/product.interface";
-
 
 interface ShopPageProps {}
 
 const ShopPage: FC<ShopPageProps> = () => {
-
 	const [products, setProducts] = useState<Product[]>();
+	const [sortCriteria, setSortCriteria] = useState("");
 
+	const navigate = useNavigate();
+
+	const urlParams = new URLSearchParams(window.location.search);
+	const sortBy = urlParams.get("sortBy") || undefined;
+	let category = urlParams.get("category") || undefined;
 
 	const loadProducts = async () => {
-		const data = await fetchAllProducts();
-
-		if (!data.status) return
-		
+		const data = await fetchAllProducts(category, sortBy);
+		if (!data.status) return;
 		setProducts(data.data);
-	}
+	};
 
 	useEffect(() => {
 		loadProducts();
 	}, []);
+
+	useEffect(() => {
+		loadProducts();
+	}, [sortCriteria, category]);
+
+	const handleSortByChange = (criteria: string) => {
+		setSortCriteria(criteria);
+		navigate({
+			pathname: "/shop",
+			search: `?sortBy=${criteria}`,
+		});
+	};
+
+	const manipulateString = (inputString: string, newSubstring: string) => {
+		// Check if the substring exists in the string
+		const substringIndex = inputString.indexOf(newSubstring);
+
+		if (substringIndex !== -1) {
+			// Remove the existing substring along with the comma
+			if (inputString.length === newSubstring.length) return inputString = '';
+			inputString =
+				inputString.slice(0, substringIndex - 1) +
+				inputString.slice(substringIndex + newSubstring.length + 1);
+		} else {
+			// Add the new substring along with a comma
+			if (inputString.length > 0 && !inputString.endsWith(",")) {
+				inputString += ",";
+			}
+			inputString += newSubstring;
+		}
+
+		return inputString;
+	}
+
+	const handleCategoryChange = (categoryName: string) => {
+
+		if (!category) category = categoryName;
+		else {
+			category = manipulateString(category, categoryName);
+		}
+		navigate({
+			pathname: "/shop",
+			search: `?sortBy=${sortCriteria}&category=${category}`,
+		});
+		console.log({ category, categoryName });
+
+	};
 
 	return (
 		<main className="main">
@@ -153,7 +202,7 @@ const ShopPage: FC<ShopPageProps> = () => {
 			<div className="page-content mb-10 shop-page">
 				<div className="container">
 					<div className="row main-content-wrap">
-						<FilterOptions />
+						<FilterOptions onClick={handleCategoryChange} />
 						<div className="col-lg-9 main-content pl-lg-6">
 							<nav className="toolbox sticky-toolbox sticky-content fix-top">
 								<div className="toolbox-left">
@@ -166,25 +215,16 @@ const ShopPage: FC<ShopPageProps> = () => {
 									</a>
 									<div className="toolbox-item toolbox-sort select-menu">
 										<label>Sort By :</label>
-										<select name="orderby">
+										<select
+											onChange={(e) => handleSortByChange(e.target.value)}
+											name="orderby"
+										>
 											<option value="default" selected={true}>
 												Default Sorting
 											</option>
-											<option value="popularity">
-												Sort By Popularity
-											</option>
-											<option value="rating">
-												Sort By The Latest
-											</option>
-											<option value="date">
-												Sort By Average Rating
-											</option>
-											<option value="price-low">
-												Sort By Price: Low To High
-											</option>
-											<option value="price-high">
-												Sort By Price: High To Low
-											</option>
+											<option value="latest">Sort By The Latest</option>
+											<option value="asc">Sort By Price: Low To High</option>
+											<option value="desc">Sort By Price: High To Low</option>
 										</select>
 									</div>
 								</div>
@@ -206,11 +246,10 @@ const ShopPage: FC<ShopPageProps> = () => {
 								</div>
 							</nav>
 							<div className="row product-wrapper cols-lg-4 cols-md-3 cols-2">
-								{
-									products && products.map((product) => (
+								{products &&
+									products.map((product) => (
 										<ProductDetails key={product.id} product={product} />
-									))
-								}
+									))}
 							</div>
 
 							<nav className="toolbox toolbox-pagination pt-2 pb-6">
