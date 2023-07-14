@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { Order } from "../../interfaces/order.interface";
 import { fetchAllOrders } from "../../apis/order.api";
+import { Link } from "react-router-dom";
+import { removeUser } from "../../redux/user/userSlice";
 
 interface MyAccountPageTabProps {}
 
@@ -23,6 +25,8 @@ const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 	}, []);
 
 	const loadOrders = async () => {
+				alert("loading");
+
 		const data = await fetchAllOrders();
 		if (!data.status) alert(data.msg);
 
@@ -38,7 +42,10 @@ const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 					</a>
 				</li>
 				<li className="nav-item">
-					<a className="nav-link" href="#orders">
+					<a
+						onClick={() => loadOrders()}
+						className="nav-link"
+						href="#orders">
 						Orders
 					</a>
 				</li>
@@ -48,9 +55,11 @@ const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 					</a>
 				</li>
 				<li className="nav-item">
-					<a className="nav-link no-tab-item" href="login.html">
+					<Link
+						onClick={() => removeUser()}
+						className="nav-link no-tab-item" to='/'>
 						Logout
-					</a>
+					</Link>
 				</li>
 			</ul>
 			<div className="tab-content col-lg-9 col-md-8">

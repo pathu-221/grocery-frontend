@@ -9,9 +9,9 @@ export async function placeOrder() {
 					"content-type": "application/json",
 				},
 				body: JSON.stringify({
-					addressId: "5fcb6e70-2cbb-4d97-973c-ffb8f3c92154",
+					addressId: "e2bf60c5-0835-49e6-8a0b-3a094007b10e",
 				}),
 			}
-    );
+		);
     return data;
 }
