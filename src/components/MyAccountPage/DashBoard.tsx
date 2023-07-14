@@ -13,7 +13,9 @@ const Dashboard: FC<DashboardProps> = ({ user }) => {
 		<div className="tab-pane active" id="dashboard">
 			<p className="mb-0">
 				Hello{" "}
-				<span className="font-weight-bold text-secondary">{`${user.first_name} ${user.last_name}`}</span>{" "}
+				<span className="font-weight-bold text-secondary">
+					{`${user.first_name} ${user.last_name}`}
+				</span>{" "}
 				(not{" "}
 				<span className="font-weight-bold text-secondary">
 					{`${user.first_name} ${user.last_name}`}
@@ -22,9 +24,8 @@ const Dashboard: FC<DashboardProps> = ({ user }) => {
 				<a
 					onClick={() => {
 						localStorage.clear();
-						navigate('/');
+						navigate("/");
 						window.location.reload();
-						
 					}}
 					className="text-primary"
 				>
