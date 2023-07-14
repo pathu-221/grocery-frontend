@@ -26,9 +26,9 @@ const MyAccountPage: FC<MyAccountPageProps> = () => {
 			</nav>
 
 			<div className="page-content mt-4 mb-10 pb-6">
-                <div className="container">
-                    <MyAccountPageTab />
-                </div>
+				<div className="container">
+					<MyAccountPageTab />
+				</div>
 			</div>
 		</main>
 	);

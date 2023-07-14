@@ -32,34 +32,37 @@ const OrdersView: FC<OrdersViewProps> = ({ order, back }) => {
 							<td></td>
 						</tr>
 						{order.order_items.map((orderItem) => (
-							<tr>
+							<tr key={orderItem.id}>
 								<td className="product-name">
-									{orderItem.product.name }{" "}
+									{orderItem.product.name}{" "}
 									<span>
-										<i className="p-icon-times"></i>{ orderItem.product_quantity}
+										<i className="p-icon-times"></i>
+										{orderItem.product_quantity}
 									</span>
 								</td>
-								<td className="product-price">${ orderItem.product_price }</td>
+								<td className="product-price">${orderItem.product_price}</td>
 							</tr>
 						))}
 						<tr className="summary-subtotal">
 							<td>
 								<h4 className="summary-subtitle">Subtotal:</h4>
 							</td>
-							<td className="summary-value font-weight-normal">${ order.grand_total }</td>
+							<td className="summary-value font-weight-normal">
+								${order.grand_total}
+							</td>
 						</tr>
 						<tr className="summary-subtotal">
 							<td>
 								<h4 className="summary-subtitle">Payment method:</h4>
 							</td>
-							<td className="summary-value">{ order.payment_type }</td>
+							<td className="summary-value">{order.payment_type}</td>
 						</tr>
 						<tr className="summary-subtotal">
 							<td>
 								<h4 className="summary-subtitle">Total:</h4>
 							</td>
 							<td>
-								<p className="summary-total-price">${ order.grand_total }</p>
+								<p className="summary-total-price">${order.grand_total}</p>
 							</td>
 						</tr>
 					</tbody>
@@ -73,13 +76,13 @@ const OrdersView: FC<OrdersViewProps> = ({ order, back }) => {
 							<p>
 								{`${user.first_name} ${user.last_name}`}
 								<br />
-								{ order.shipping_address_1 }
+								{order.shipping_address_1}
 								<br />
-								{ order.shipping_city}
+								{order.shipping_city}
 								<br />
-								{ `${order.shipping_state} - ${order.shipping_zip}`}
+								{`${order.shipping_state} - ${order.shipping_zip}`}
 							</p>
-							<p>{ user.email }</p>
+							<p>{user.email}</p>
 						</div>
 					</div>
 				</div>
@@ -94,13 +97,15 @@ const OrdersView: FC<OrdersViewProps> = ({ order, back }) => {
 			</div>
 
 			<hr className="mt-0 mb-6" />
-			<a
-				onClick={() => back()}
-				href="#orders"
-				className="btn btn-dark btn-sm back-order"
-			>
-				<i className="p-icon-arrow-long-left ml-0 mr-1"></i>Back to list
-			</a>
+			<div className="ib-wrapper">
+				<a
+					onClick={() => back()}
+					href="#orders"
+					className="btn btn-dark btn-sm back-order"
+				>
+					<i className="p-icon-arrow-long-left ml-0 mr-1"></i>Back to list
+				</a>
+			</div>
 		</div>
 	);
 };

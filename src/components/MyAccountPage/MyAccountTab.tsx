@@ -16,7 +16,7 @@ interface MyAccountPageTabProps {}
 
 const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 	const user = useSelector((state: RootState) => state.user.user);
-	const [orderToView, setOrderToView] = useState<Order>();
+	const [orderToView, setOrderToView] = useState<Order | null>(null);
 
 	const [orders, setOrders] = useState<Order[]>();
 
@@ -25,8 +25,6 @@ const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 	}, []);
 
 	const loadOrders = async () => {
-				alert("loading");
-
 		const data = await fetchAllOrders();
 		if (!data.status) alert(data.msg);
 
@@ -42,10 +40,7 @@ const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 					</a>
 				</li>
 				<li className="nav-item">
-					<a
-						onClick={() => loadOrders()}
-						className="nav-link"
-						href="#orders">
+					<a className="nav-link" href="#orders">
 						Orders
 					</a>
 				</li>
@@ -57,7 +52,9 @@ const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 				<li className="nav-item">
 					<Link
 						onClick={() => removeUser()}
-						className="nav-link no-tab-item" to='/'>
+						className="nav-link no-tab-item"
+						to="/"
+					>
 						Logout
 					</Link>
 				</li>
@@ -71,7 +68,7 @@ const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 						}} /> */}
 						{orderToView ? (
 							<OrdersView
-								back={() => setOrderToView(undefined)}
+								back={() => setOrderToView(null)}
 								order={orderToView}
 							/>
 						) : (
@@ -80,11 +77,11 @@ const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 									orders={orders}
 									onClick={(order: Order) => {
 										setOrderToView(order);
-										loadOrders();
 									}}
 								/>
 							)
 						)}
+
 						<Addresses />
 						<Account />
 					</>
