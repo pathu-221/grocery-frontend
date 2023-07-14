@@ -25,7 +25,7 @@ const Header: FC<HeaderProps> = () => {
 						</div>
 					<div className="header-right">
 						{/** currency */}
-							<div className="dropdown switcher">
+							{/* <div className="dropdown switcher">
 								<a href="#currency">USD</a>
 								<ul className="dropdown-box">
 									<li>
@@ -35,9 +35,9 @@ const Header: FC<HeaderProps> = () => {
 										<a href="#EUR">EUR</a>
 									</li>
 								</ul>
-							</div>
+							</div> */}
 							{/* <!-- End DropDown Menu --> */}
-							<div className="dropdown switcher">
+							{/* <div className="dropdown switcher">
 								<a href="#language">
 									<img
 										src="images/flagus.jpg"
@@ -74,7 +74,7 @@ const Header: FC<HeaderProps> = () => {
 										</a>
 									</li>
 								</ul>
-							</div>
+							</div> */}
 							<span className="divider"></span>
 							{/* <!-- End DropDown Menu --> */}
 							<div className="social-links">

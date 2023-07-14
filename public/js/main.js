@@ -1246,20 +1246,20 @@ window.Panda = {};
     /**
      * @function initPurchasedMinipopup
      */
-    Panda.initPurchasedMinipopup = function () {
-        setInterval( function () {
-            Panda.Minipopup.open( {
-                message: 'Someone Purchased',
-                productClass: 'product-mini',
-                name: 'Actinidia Arguta',
-                nameLink: 'product-simple.html',
-                imageSrc: 'images/cart/product.jpg',
-                isPurchased: true
-            }, function ( $box ) {
-                Panda.ratingTooltip( $box[ 0 ] );
-            } );
-        }, 60000 );
-    }
+    // Panda.initPurchasedMinipopup = function () {
+    //     setInterval( function () {
+    //         Panda.Minipopup.open( {
+    //             message: 'Someone Purchased',
+    //             productClass: 'product-mini',
+    //             name: 'Actinidia Arguta',
+    //             nameLink: 'product-simple.html',
+    //             imageSrc: 'images/cart/product.jpg',
+    //             isPurchased: true
+    //         }, function ( $box ) {
+    //             Panda.ratingTooltip( $box[ 0 ] );
+    //         } );
+    //     }, 60000 );
+    //}
 
     /**
      * @function initScrollTopButton
@@ -1842,16 +1842,16 @@ window.Panda = {};
                     name = $product.find( '.product-name' ).text();
 
                 // minipopup if only quickview or home pages
-                Panda.Minipopup.open( {
-                    message: 'Successfully Added',
-                    productClass: 'product-mini',
-                    name: name,
-                    nameLink: $product.find( '.product-name > a' ).attr( 'href' ),
-                    imageSrc: $product.find( '.product-image img' ).eq( 0 ).attr( 'src' ),
-                    imageLink: $product.find( '.product-name > a' ).attr( 'href' ),
-                    price: $product.find( '.product-price' ).html(),
-                    actionTemplate: '<div class="action-group d-flex mt-3"><a href="#" class="btn btn-sm btn-outline btn-primary btn-block btn-cart mr-2">Add to Cart</a><a href="compare.html" class="btn btn-sm btn-primary btn-block">Compare List</a></div>'
-                } );
+                // Panda.Minipopup.open( {
+                //     message: 'Successfully Added',
+                //     productClass: 'product-mini',
+                //     name: name,
+                //     nameLink: $product.find( '.product-name > a' ).attr( 'href' ),
+                //     imageSrc: $product.find( '.product-image img' ).eq( 0 ).attr( 'src' ),
+                //     imageLink: $product.find( '.product-name > a' ).attr( 'href' ),
+                //     price: $product.find( '.product-price' ).html(),
+                //     actionTemplate: '<div class="action-group d-flex mt-3"><a href="#" class="btn btn-sm btn-outline btn-primary btn-block btn-cart mr-2">Add to Cart</a><a href="compare.html" class="btn btn-sm btn-primary btn-block">Compare List</a></div>'
+                // } );
                 $( this ).addClass( 'open' );
                 $( this ).html( '<i class="p-icon-check-solid"></i> BROWSE COMPARE' )
                 $( this ).attr( 'title', 'Browse compare' )
@@ -2014,16 +2014,16 @@ window.Panda = {};
         function compareAdded( e ) {
             var $product = $( e.currentTarget ).closest( '.product-single' );
             if ( $product.find( '.btn-product.btn-cart' ).attr( 'disabled' ) != 'disabled' ) {
-                Panda.Minipopup.open( {
-                    message: 'Successfully Added',
-                    productClass: 'product-mini',
-                    name: $product.find( 'h1.product-name' ).text(),
-                    nameLink: $product.find( '.product-name > a' ).attr( 'href' ),
-                    imageSrc: $product.find( '.product-image img' ).eq( 0 ).attr( 'src' ),
-                    imageLink: $product.find( '.product-name > a' ).attr( 'href' ),
-                    price: $product.find( '.product-variation-price' ).length > 0 ? $product.find( '.product-variation-price' ).children( 'span' ).html() : $product.find( '.product-price' ).html(),
-                    actionTemplate: '<div class="action-group d-flex mt-3"><a href="#" class="btn btn-sm btn-outline btn-primary btn-block btn-cart mr-2">Add to Cart</a><a href="compare.html" class="btn btn-sm btn-primary btn-block">Compare List</a></div>'
-                } );
+                // Panda.Minipopup.open( {
+                //     message: 'Successfully Added',
+                //     productClass: 'product-mini',
+                //     name: $product.find( 'h1.product-name' ).text(),
+                //     nameLink: $product.find( '.product-name > a' ).attr( 'href' ),
+                //     imageSrc: $product.find( '.product-image img' ).eq( 0 ).attr( 'src' ),
+                //     imageLink: $product.find( '.product-name > a' ).attr( 'href' ),
+                //     price: $product.find( '.product-variation-price' ).length > 0 ? $product.find( '.product-variation-price' ).children( 'span' ).html() : $product.find( '.product-price' ).html(),
+                //     actionTemplate: '<div class="action-group d-flex mt-3"><a href="#" class="btn btn-sm btn-outline btn-primary btn-block btn-cart mr-2">Add to Cart</a><a href="compare.html" class="btn btn-sm btn-primary btn-block">Compare List</a></div>'
+                // } );
             }
         }
 
@@ -3130,47 +3130,47 @@ window.Panda = {};
                         productPrice = $( '.panda-compare-table > .compare-row' ).eq( 2 ).children().eq( $compareCol.index() ).find( '.product-price .new-price, .product-price' ).html();
                         $productName = $( '.panda-compare-table > .compare-row' ).eq( 1 ).children().eq( $compareCol.index() );
                         // if not product single, then open minipopup
-                        $product.hasClass( 'product-single' ) ||
-                            Panda.Minipopup.open( {
-                                message: 'Successfully Added',
-                                productClass: 'product-mini',
-                                name: $productName.find( 'a' ).text(),
-                                nameLink: $productName.find( ' a ' ).attr( 'href' ),
-                                imageSrc: $product.find( '.product-media img' ).attr( 'src' ),
-                                imageLink: $productName.find( ' a ' ).attr( 'href' ),
-                                price: productPrice,
-                                count: $product.find( '.quantity' ).length > 0 ? $product.find( '.quantity' ).val() : 1,
-                                actionTemplate: '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-block">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-block">Check Out</a></div>'
-                            } );
+                        // $product.hasClass( 'product-single' ) ||
+                        //     Panda.Minipopup.open( {
+                        //         message: 'Successfully Added',
+                        //         productClass: 'product-mini',
+                        //         name: $productName.find( 'a' ).text(),
+                        //         nameLink: $productName.find( ' a ' ).attr( 'href' ),
+                        //         imageSrc: $product.find( '.product-media img' ).attr( 'src' ),
+                        //         imageLink: $productName.find( ' a ' ).attr( 'href' ),
+                        //         price: productPrice,
+                        //         count: $product.find( '.quantity' ).length > 0 ? $product.find( '.quantity' ).val() : 1,
+                        //         actionTemplate: '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-block">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-block">Check Out</a></div>'
+                        //     } );
                     } else {
 
                         if ( $this.closest( '.wishlist-table' ).length > 0 ) {
-                            var $parent = $this.closest( 'tr' );
-                            Panda.Minipopup.open( {
-                                message: 'Successfully Added',
-                                productClass: 'product-mini',
-                                name: $parent.find( '.product-name' ).text(),
-                                nameLink: $parent.find( '.product-name > a' ).attr( 'href' ),
-                                imageSrc: $parent.find( '.product-thumbnail img' ).attr( 'src' ),
-                                imageLink: $parent.find( '.product-thumbnail > a' ).attr( 'href' ),
-                                price: $parent.find( '.product-price .amount' ).html(),
-                                count: 1,
-                                actionTemplate: '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-block">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-block">Check Out</a></div>'
-                            } );
+                            // var $parent = $this.closest( 'tr' );
+                            // Panda.Minipopup.open( {
+                            //     message: 'Successfully Added',
+                            //     productClass: 'product-mini',
+                            //     name: $parent.find( '.product-name' ).text(),
+                            //     nameLink: $parent.find( '.product-name > a' ).attr( 'href' ),
+                            //     imageSrc: $parent.find( '.product-thumbnail img' ).attr( 'src' ),
+                            //     imageLink: $parent.find( '.product-thumbnail > a' ).attr( 'href' ),
+                            //     price: $parent.find( '.product-price .amount' ).html(),
+                            //     count: 1,
+                            //     actionTemplate: '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-block">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-block">Check Out</a></div>'
+                            // } );
                         } else {
                             // if not product single, then open minipopup
-                            $product.hasClass( 'product-single' ) || $product.hasClass( 'product-mini' )
-                            Panda.Minipopup.open( {
-                                message: 'Successfully Added',
-                                productClass: 'product-mini',
-                                name: $product.find( '.product-name' ).text(),
-                                nameLink: $product.find( '.product-name > a' ).attr( 'href' ),
-                                imageSrc: $product.find( '.product-media img' ).attr( 'src' ),
-                                imageLink: $product.find( '.product-name > a' ).attr( 'href' ),
-                                price: $product.find( '.product-price .new-price, .product-price .price, .product-price' ).html(),
-                                count: $product.find( '.quantity' ).length > 0 ? $product.find( '.quantity' ).val() : 1,
-                                actionTemplate: '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-block">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-block">Check Out</a></div>'
-                            } );
+                            // $product.hasClass( 'product-single' ) || $product.hasClass( 'product-mini' )
+                            // Panda.Minipopup.open( {
+                            //     message: 'Successfully Added',
+                            //     productClass: 'product-mini',
+                            //     name: $product.find( '.product-name' ).text(),
+                            //     nameLink: $product.find( '.product-name > a' ).attr( 'href' ),
+                            //     imageSrc: $product.find( '.product-media img' ).attr( 'src' ),
+                            //     imageLink: $product.find( '.product-name > a' ).attr( 'href' ),
+                            //     price: $product.find( '.product-price .new-price, .product-price .price, .product-price' ).html(),
+                            //     count: $product.find( '.quantity' ).length > 0 ? $product.find( '.quantity' ).val() : 1,
+                            //     actionTemplate: '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-block">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-block">Check Out</a></div>'
+                            // } );
                         }
                     }
                 } )
@@ -3178,35 +3178,35 @@ window.Panda = {};
                 // Add to cart in miniPopup
                 .on( 'click', '.minipopup-box .btn-cart', function ( e ) {
                     e.preventDefault();
-                    var $product = $( this ).closest( '.minipopup-box' ).find( '.product' );
-                    Panda.Minipopup.open( {
-                        message: 'Successfully Added',
-                        productClass: 'product-mini',
-                        name: $product.find( '.product-name' ).text(),
-                        nameLink: $product.find( '.product-name > a' ).attr( 'href' ),
-                        imageSrc: $product.find( '.product-media img' ).attr( 'src' ),
-                        imageLink: $product.find( '.product-name > a' ).attr( 'href' ),
-                        price: $product.find( '.product-price .new-price, .product-price .price, .product-price' ).html(),
-                        count: $product.find( '.quantity' ).length > 0 ? $product.find( '.quantity' ).val() : 1,
-                        actionTemplate: '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-block">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-block">Check Out</a></div>'
-                    } );
+                    // var $product = $( this ).closest( '.minipopup-box' ).find( '.product' );
+                    // Panda.Minipopup.open( {
+                    //     message: 'Successfully Added',
+                    //     productClass: 'product-mini',
+                    //     name: $product.find( '.product-name' ).text(),
+                    //     nameLink: $product.find( '.product-name > a' ).attr( 'href' ),
+                    //     imageSrc: $product.find( '.product-media img' ).attr( 'src' ),
+                    //     imageLink: $product.find( '.product-name > a' ).attr( 'href' ),
+                    //     price: $product.find( '.product-price .new-price, .product-price .price, .product-price' ).html(),
+                    //     count: $product.find( '.quantity' ).length > 0 ? $product.find( '.quantity' ).val() : 1,
+                    //     actionTemplate: '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-block">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-block">Check Out</a></div>'
+                    // } );
                 } )
 
                 // Add to cart in hotspot
                 .on( 'click', '.hotspot .btn-cart', function ( e ) {
                     e.preventDefault();
-                    var $tooltip = $( this ).closest( '.tooltip' );
-                    Panda.Minipopup.open( {
-                        message: 'Successfully Added To Cart',
-                        productClass: 'product-mini',
-                        name: $tooltip.find( '.tooltip-name' ).text(),
-                        nameLink: $tooltip.find( '.tooltip-name > a' ).attr( 'href' ),
-                        imageSrc: $tooltip.find( '.tooltip-media img' ).attr( 'src' ),
-                        imageLink: $tooltip.find( '.tooltip-name > a' ).attr( 'href' ),
-                        price: $tooltip.find( '.tooltip-price .new-price, .tooltip-price .price' ).html(),
-                        count: $tooltip.find( '.quantity' ).length > 0 ? $tooltip.find( '.quantity' ).val() : 1,
-                        actionTemplate: '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-block">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-block">Check Out</a></div>'
-                    } );
+                    // var $tooltip = $( this ).closest( '.tooltip' );
+                    // Panda.Minipopup.open( {
+                    //     message: 'Successfully Added To Cart',
+                    //     productClass: 'product-mini',
+                    //     name: $tooltip.find( '.tooltip-name' ).text(),
+                    //     nameLink: $tooltip.find( '.tooltip-name > a' ).attr( 'href' ),
+                    //     imageSrc: $tooltip.find( '.tooltip-media img' ).attr( 'src' ),
+                    //     imageLink: $tooltip.find( '.tooltip-name > a' ).attr( 'href' ),
+                    //     price: $tooltip.find( '.tooltip-price .new-price, .tooltip-price .price' ).html(),
+                    //     count: $tooltip.find( '.quantity' ).length > 0 ? $tooltip.find( '.quantity' ).val() : 1,
+                    //     actionTemplate: '<div class="action-group d-flex"><a href="cart.html" class="btn btn-sm btn-outline btn-primary btn-block">View Cart</a><a href="checkout.html" class="btn btn-sm btn-primary btn-block">Check Out</a></div>'
+                    // } );
                 } );
         },
         initRemoveData: function () {

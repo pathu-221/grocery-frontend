@@ -55,7 +55,7 @@ const Navbar: FC<NavbarProps> = () => {
 
 					<div className="header-right">
 						{/** search bar */}
-						<div className="header-search hs-toggle">
+						{/* <div className="header-search hs-toggle">
 							<a className="search-toggle" href="#" title="Search">
 								<i className="p-icon-search-solid"></i>
 							</a>
@@ -70,11 +70,11 @@ const Navbar: FC<NavbarProps> = () => {
 									<i className="p-icon-search-solid"></i>
 								</button>
 							</form>
-						</div>
+						</div> */}
 						<LoginAndRegister /> {/** incomplete */}
-						<a href="#" className="wishlist wishlist-toggle" title="Wishlist">
+						{/* <a href="#" className="wishlist wishlist-toggle" title="Wishlist">
 							<i className="p-icon-heart-solid"></i>
-						</a>
+						</a> */}
 						<CartDropDown />
 					</div>
 				</div>

@@ -170,9 +170,15 @@ const ShopPage: FC<ShopPageProps> = () => {
 											<option value="default" selected={true}>
 												Default Sorting
 											</option>
-											<option value="popularity">Sort By Popularity</option>
-											<option value="rating">Sort By The Latest</option>
-											<option value="date">Sort By Average Rating</option>
+											<option value="popularity">
+												Sort By Popularity
+											</option>
+											<option value="rating">
+												Sort By The Latest
+											</option>
+											<option value="date">
+												Sort By Average Rating
+											</option>
 											<option value="price-low">
 												Sort By Price: Low To High
 											</option>
@@ -191,12 +197,12 @@ const ShopPage: FC<ShopPageProps> = () => {
 											<option value="36">36</option>
 										</select>
 									</div>
-									<div className="toolbox-item toolbox-layout">
+									{/* <div className="toolbox-item toolbox-layout">
 										<a
 											href="shop-4-cols.html"
 											className="p-icon-grid btn-layout active"
 										></a>
-									</div>
+									</div> */}
 								</div>
 							</nav>
 							<div className="row product-wrapper cols-lg-4 cols-md-3 cols-2">
