@@ -16,13 +16,18 @@ interface MyAccountPageTabProps {}
 
 const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 	const user = useSelector((state: RootState) => state.user.user);
-	const [orderToView, setOrderToView] = useState<Order | null>(null);
+	const [orderToView, setOrderToView] = useState<Order>();
 
 	const [orders, setOrders] = useState<Order[]>();
 
 	useEffect(() => {
 		loadOrders();
 	}, []);
+
+	const logout = () => {
+		localStorage.clear();
+		removeUser();
+	}
 
 	const loadOrders = async () => {
 		const data = await fetchAllOrders();
@@ -51,7 +56,7 @@ const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 				</li>
 				<li className="nav-item">
 					<Link
-						onClick={() => removeUser()}
+						onClick={() => logout()}
 						className="nav-link no-tab-item"
 						to="/"
 					>
@@ -67,19 +72,22 @@ const MyAccountPageTab: FC<MyAccountPageTabProps> = () => {
 							setOrderToView(order);
 						}} /> */}
 						{orderToView ? (
-							<OrdersView
-								back={() => setOrderToView(null)}
-								order={orderToView}
-							/>
-						) : (
-							orders && (
-								<Orders
-									orders={orders}
-									onClick={(order: Order) => {
-										setOrderToView(order);
+							<>
+								<OrdersView
+									back={() => {
+										setOrderToView(undefined);
 									}}
+									order={orderToView}
 								/>
-							)
+								<p>test orderdetail</p>
+							</>
+						) : (
+							<Orders
+								orders={orders || []}
+								onClick={(order: Order) => {
+									setOrderToView(order);
+								}}
+							/>
 						)}
 
 						<Addresses />

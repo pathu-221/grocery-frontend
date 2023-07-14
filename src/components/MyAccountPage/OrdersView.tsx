@@ -14,7 +14,7 @@ const OrdersView: FC<OrdersViewProps> = ({ order, back }) => {
 	if (!user) return <h1>Sign in to continue</h1>
 	
 	return (
-		<div className="order">
+		<div className="order tab-content" id='orders-view'>
 			<h2 className="title text-left pb-1">Order Details</h2>
 			<div className="order-details">
 				<table className="order-details-table">

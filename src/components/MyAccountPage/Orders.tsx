@@ -7,6 +7,7 @@ interface OrdersProps {
 }
 
 const Orders: FC<OrdersProps> = ({ onClick, orders }) => {
+	console.log({ orders });
 	const formatOrderDate = (date: string) => {
 		const formattedDate = new Date(date).toLocaleDateString("en-us", {
 			month: "long",
