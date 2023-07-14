@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../redux/user/userSlice";
 import { RootState } from "../redux/store";
 import showToast from "../helpers/showToast";
+import { Link } from "react-router-dom";
 
 interface LoginAndRegisterProps {}
 
@@ -30,12 +31,11 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 		e.preventDefault();
 		const data = await login(formValue);
 
-		if (!data.status) return showToast('danger', data.msg);
+		if (!data.status) return showToast("danger", data.msg);
 
-		showToast('danger', data.msg);
-		localStorage.setItem('token', data.data.token)
+		showToast("danger", data.msg);
+		localStorage.setItem("token", data.data.token);
 		dispatch(addUser(data.data.user));
-
 	};
 
 	const onRegisterInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,21 +49,21 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 		e.preventDefault();
 		const data = await register(registerFormValue);
 		if (!data.status) alert(data.msg);
-		
-		showToast('success', data.msg);
+
+		showToast("success", data.msg);
 	};
 
 	return (
 		<div className="dropdown login-dropdown off-canvas">
-			<a
+			<Link
 				className="login-toggle d-flex flex-column"
-				href={`${user ? "/myAccount" : "ajax/login.html"}`}
+				to={`${user ? "/myAccount" : ""}`}
 				data-toggle="login-modal"
 			>
 				<span className="sr-only">login</span>
 				<i className="p-icon-user-solid"></i>
 				{user && <span>{user.user_name}</span>}
-			</a>
+			</Link>
 			{!user && (
 				<>
 					<div className="canvas-overlay"></div>
@@ -82,14 +82,23 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 											</a>
 										</li>
 										<li className="nav-item">
-											<a className="nav-link lh-1 ls-normal" href="#register">
+											<a
+												className="nav-link lh-1 ls-normal"
+												href="#register"
+											>
 												Register
 											</a>
 										</li>
 									</ul>
 									<div className="tab-content">
-										<div className="tab-pane active" id="signin">
-											<form onSubmit={onSubmit} action="#">
+										<div
+											className="tab-pane active"
+											id="signin"
+										>
+											<form
+												onSubmit={onSubmit}
+												action="#"
+											>
 												<div className="form-group">
 													<input
 														type="text"
@@ -115,9 +124,14 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 															id="signin-remember"
 															name="signin-remember"
 														/>
-														<label htmlFor="signin-remember">Remember me</label>
+														<label htmlFor="signin-remember">
+															Remember me
+														</label>
 													</div>
-													<a href="#" className="lost-link">
+													<a
+														href="#"
+														className="lost-link"
+													>
 														Lost your password?
 													</a>
 												</div>
@@ -158,14 +172,18 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 														name="first_name"
 														placeholder="First name"
 														required
-														onChange={onRegisterInputChange}
+														onChange={
+															onRegisterInputChange
+														}
 													/>
 													<input
 														type="text"
 														id="register-user"
 														name="last_name"
 														placeholder="Last Name"
-														onChange={onRegisterInputChange}
+														onChange={
+															onRegisterInputChange
+														}
 														required
 													/>
 													<input
@@ -173,7 +191,9 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 														id="register-email"
 														name="email"
 														placeholder="Your Email Address"
-														onChange={onRegisterInputChange}
+														onChange={
+															onRegisterInputChange
+														}
 														required
 													/>
 													<input
@@ -181,7 +201,9 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 														id="register-user"
 														name="user_name"
 														placeholder="Username"
-														onChange={onRegisterInputChange}
+														onChange={
+															onRegisterInputChange
+														}
 														required
 													/>
 													<input
@@ -189,7 +211,9 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 														id="register-password"
 														name="password"
 														placeholder="Password"
-														onChange={onRegisterInputChange}
+														onChange={
+															onRegisterInputChange
+														}
 														required
 													/>
 												</div>
@@ -202,7 +226,8 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 															required
 														/>
 														<label htmlFor="register-agree">
-															I agree to the privacy policy
+															I agree to the
+															privacy policy
 														</label>
 													</div>
 												</div>
@@ -214,7 +239,9 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 												</button>
 											</form>
 											<div className="form-choice text-center">
-												<label className="ls-m">or Register With</label>
+												<label className="ls-m">
+													or Register With
+												</label>
 												<div className="social-links social-link-active ">
 													<a
 														href="#"
@@ -237,7 +264,11 @@ const LoginAndRegister: FC<LoginAndRegisterProps> = () => {
 									</div>
 								</div>
 							</div>
-							<button title="Close (Esc)" type="button" className="mfp-close">
+							<button
+								title="Close (Esc)"
+								type="button"
+								className="mfp-close"
+							>
 								<span>×</span>
 							</button>
 						</div>
