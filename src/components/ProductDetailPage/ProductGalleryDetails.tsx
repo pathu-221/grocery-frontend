@@ -30,14 +30,12 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 				</a>
 			</div>
 			<p className="product-price mb-1">
-				<del className="old-price">$24.00</del>
 				<ins className="new-price">${product?.base_price || "18"}.00</ins>
 			</p>
 			<p className="product-short-desc">
-				Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae
-				libero eu augue. Morbi purus liberpuro ate adipiscing.
+				{ product?.description}
 			</p>
-			<ul className="list list-circle">
+			{/* <ul className="list list-circle">
 				<li>
 					<i className="far fa-circle"></i>Nunc id cursus metus aliquam.
 				</li>
@@ -53,8 +51,8 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 					<i className="far fa-circle"></i>Tellus rutrumn tellus pellentesque eu
 					tincidunt tortor
 				</li>
-			</ul>
-			<div className="product-form product-unit mb-2 pt-1">
+			</ul> */}
+			{/* <div className="product-form product-unit mb-2 pt-1">
 				<label>WEIGHT UNIT</label>
 				<div className="product-form-group pt-1">
 					<div className="product-variations mb-1">
@@ -72,10 +70,10 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 						Clean All
 					</a>
 				</div>
-			</div>
-			<div className="product-variation-price">
+			</div> */}
+			{/* <div className="product-variation-price">
 				<span>$239.00</span>
-			</div>
+			</div> */}
 			<div className="product-form product-qty pt-1">
 				<div className="product-form-group">
 					<div className="input-group">
@@ -96,14 +94,14 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 					</button>
 				</div>
 			</div>
-			<div className="product-action pt-5 pb-3">
+			{/* <div className="product-action pt-5 pb-3">
 				<a href="#" className="btn-product btn-compare mr-5">
 					<i className="p-icon-compare-solid"></i>ADD TO COMPARE
 				</a>
 				<a href="#" className="btn-product btn-wishlist">
 					<i className="p-icon-heart-solid"></i>ADD TO WISHLIST
 				</a>
-			</div>
+			</div> */}
 			<hr className="product-divider" />
 
 			<div className="product-meta">

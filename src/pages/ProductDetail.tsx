@@ -13,12 +13,18 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 	const queryParams = new URLSearchParams(window.location.search);
 	const productId = queryParams.get('productId');
 	const [product, setProduct] = useState<Product>();
-
+	const [images, setImages] = useState<string[]>();
 
 	useEffect(() => {
 		if (productId) loadProductDetail(productId);
 		
 	}, []);
+
+	useEffect(() => {
+		if (!product) return
+		
+		setImages(JSON.parse(product.images));
+	}, [product]);
 
 	const loadProductDetail = async (productId: string) => {
 		const data = await fetchProductbyId(productId);
@@ -26,7 +32,7 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 		if (!data.status) return
 		
 		setProduct(data.data);
-
+		
 	}
 
 	return (
@@ -76,7 +82,7 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 				<div className="container">
 					<div className="product product-single product-simple row mb-8">
 						<div className="col-md-7">
-							<ProductGallery />
+							<ProductGallery images={images}/>
 						</div>
 						<div className="col-md-5">
 							<ProductGalleryDetails  product={product}/>

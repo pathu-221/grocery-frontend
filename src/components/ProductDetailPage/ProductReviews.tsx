@@ -9,7 +9,7 @@ const ProductReviews: FC<ProductReviewsProps> = () => {
 				<h2 className="title title-line title-underline mb-8">
 					<span>Customer Reviews</span>
 				</h2>
-				<div className="toolbox-group">
+				{/* <div className="toolbox-group">
 					<div className="review-toolbox mr-4">
 						<select name="orderby" className="form-control">
 							<option value="">All Reviews</option>
@@ -32,7 +32,7 @@ const ProductReviews: FC<ProductReviewsProps> = () => {
 							<option value="no">No Stars</option>
 						</select>
 					</div>
-				</div>
+				</div> */}
 			</div>
 			<div className="row pb-10">
 				<div className="col-lg-4 mb-4 sticky-sidebar-wrapper">

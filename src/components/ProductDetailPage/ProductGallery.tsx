@@ -6,14 +6,22 @@ interface ProductGalleryProps {
 	images?: string[]
 }
 
-const ProductGallery: FC<ProductGalleryProps> = ({ }) => {
+const ProductGallery: FC<ProductGalleryProps> = ({ images }) => {
     return (
 			<div className="product-gallery">
 				<div className="product-single-carousel owl-carousel owl-theme owl-nav-inner row cols-1 gutter-no">
 					<figure className="product-image">
 						<img
-							src="images/products/product-single/800x1000.jpg"
-							data-zoom-image="images/products/product-single/800x1000.jpg"
+							src={
+								images
+									? images[0]
+									: "images/products/product-single/800x1000.jpg"
+							}
+							data-zoom-image={
+								images
+									? images[0]
+									: "images/products/product-single/800x1000.jpg"
+							}
 							alt="1"
 							width="800"
 							height="1000"
@@ -21,7 +29,11 @@ const ProductGallery: FC<ProductGalleryProps> = ({ }) => {
 					</figure>
 					<figure className="product-image">
 						<img
-							src="images/products/product-single/800x1000.jpg"
+							src={
+								images
+									? images[1]
+									: "images/products/product-single/800x1000.jpg"
+							}
 							data-zoom-image="images/products/product-single/800x1000.jpg"
 							alt="2"
 							width="800"
@@ -30,7 +42,11 @@ const ProductGallery: FC<ProductGalleryProps> = ({ }) => {
 					</figure>
 					<figure className="product-image">
 						<img
-							src="images/products/product-single/800x1000.jpg"
+							src={
+								images
+									? images[2]
+									: "images/products/product-single/800x1000.jpg"
+							}
 							data-zoom-image="images/products/product-single/800x1000.jpg"
 							alt="3"
 							width="800"
@@ -39,7 +55,11 @@ const ProductGallery: FC<ProductGalleryProps> = ({ }) => {
 					</figure>
 					<figure className="product-image">
 						<img
-							src="images/products/product-single/800x1000.jpg"
+							src={
+								images
+									? images[3]
+									: "images/products/product-single/800x1000.jpg"
+							}
 							data-zoom-image="images/products/product-single/800x1000.jpg"
 							alt="4"
 							width="800"
@@ -51,7 +71,11 @@ const ProductGallery: FC<ProductGalleryProps> = ({ }) => {
 					<div className="product-thumbs">
 						<div className="product-thumb active">
 							<img
-								src="images/products/product-single/240x300.jpg"
+								src={
+									images
+										? images[0]
+										: "images/products/product-single/800x1000.jpg"
+								}
 								alt="product thumbnail"
 								width="240"
 								height="300"
@@ -59,7 +83,11 @@ const ProductGallery: FC<ProductGalleryProps> = ({ }) => {
 						</div>
 						<div className="product-thumb">
 							<img
-								src="images/products/product-single/240x300.jpg"
+								src={
+									images
+										? images[1]
+										: "images/products/product-single/800x1000.jpg"
+								}
 								alt="product thumbnail"
 								width="240"
 								height="300"
@@ -67,7 +95,11 @@ const ProductGallery: FC<ProductGalleryProps> = ({ }) => {
 						</div>
 						<div className="product-thumb">
 							<img
-								src="images/products/product-single/240x300.jpg"
+								src={
+									images
+										? images[2]
+										: "images/products/product-single/800x1000.jpg"
+								}
 								alt="product thumbnail"
 								width="240"
 								height="300"
@@ -75,7 +107,11 @@ const ProductGallery: FC<ProductGalleryProps> = ({ }) => {
 						</div>
 						<div className="product-thumb">
 							<img
-								src="images/products/product-single/240x300.jpg"
+								src={
+									images
+										? images[3]
+										: "images/products/product-single/800x1000.jpg"
+								}
 								alt="product thumbnail"
 								width="240"
 								height="300"

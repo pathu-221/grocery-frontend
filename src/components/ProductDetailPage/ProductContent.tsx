@@ -6,7 +6,7 @@ interface ProductContentProps {}
 const ProductContent: FC<ProductContentProps> = () => {
 	return (
 		<div className="product-content">
-			<div className="content-description">
+			{/* <div className="content-description">
 				<h2 className="title title-line title-underline mb-lg-8">
 					<span>Description</span>
 				</h2>
@@ -87,7 +87,7 @@ const ProductContent: FC<ProductContentProps> = () => {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> */}
 			<div className="content-specification mt-10 pt-3">
 				<h2 className="title title-line title-underline">
 					<span>Specifications</span>
