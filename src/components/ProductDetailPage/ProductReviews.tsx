@@ -1,8 +1,12 @@
 import type { FC } from "react";
 
-interface ProductReviewsProps {}
 
-const ProductReviews: FC<ProductReviewsProps> = () => {
+interface ProductReviewsProps {
+}
+
+const ProductReviews: FC<ProductReviewsProps> = ({ }) => {
+
+
 	return (
 		<div className="content-reviews pt-9" id="content-reviews">
 			<div className="with-toolbox">
@@ -115,7 +119,7 @@ const ProductReviews: FC<ProductReviewsProps> = () => {
 								<div className="progress-value">0%</div>
 							</div>
 						</div>
-						<a className="btn btn-dim submit-review-toggle">Submit Review</a>
+						{/* <a className="btn btn-dim submit-review-toggle">Submit Review</a> */}
 					</div>
 				</div>
 				<div className="col-lg-8 comments border-no">
@@ -184,7 +188,7 @@ const ProductReviews: FC<ProductReviewsProps> = () => {
 											alt="product"
 										/>
 									</div>
-									<div className="feeling mt-5">
+									{/* <div className="feeling mt-5">
 										<button className="btn btn-link text-capitalize btn-icon-left btn-slide-up btn-infinite like">
 											<i className="fa fa-thumbs-up mb-1"></i>
 											Helpful (<span className="count">0</span>)
@@ -193,7 +197,7 @@ const ProductReviews: FC<ProductReviewsProps> = () => {
 											<i className="fa fa-thumbs-down mb-1"></i>
 											Unhelpful (<span className="count">0</span>)
 										</button>
-									</div>
+									</div> */}
 								</div>
 							</div>
 						</li>
@@ -239,7 +243,7 @@ const ProductReviews: FC<ProductReviewsProps> = () => {
 											felis.
 										</p>
 									</div>
-									<div className="feeling">
+									{/* <div className="feeling">
 										<button className="btn btn-link text-capitalize btn-icon-left btn-slide-up btn-infinite like">
 											<i className="fa fa-thumbs-up mb-1"></i>
 											Helpful (<span className="count">0</span>)
@@ -248,12 +252,12 @@ const ProductReviews: FC<ProductReviewsProps> = () => {
 											<i className="fa fa-thumbs-down mb-1"></i>
 											Unhelpful (<span className="count">0</span>)
 										</button>
-									</div>
+									</div> */}
 								</div>
 							</div>
 						</li>
 					</ul>
-					<nav className="toolbox toolbox-pagination justify-content-end">
+					{/* <nav className="toolbox toolbox-pagination justify-content-end">
 						<ul className="pagination">
 							<li className="page-item disabled">
 								<a
@@ -292,7 +296,7 @@ const ProductReviews: FC<ProductReviewsProps> = () => {
 								</a>
 							</li>
 						</ul>
-					</nav>
+					</nav> */}
 				</div>
 			</div>
 		</div>

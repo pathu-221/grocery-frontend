@@ -46,9 +46,9 @@ const Navbar: FC<NavbarProps> = () => {
 								>
 									<Link to="/shop">Shop</Link>
 								</li>
-								<li>
+								{/* <li>
 									<a href="#">Products</a>
-								</li>
+								</li> */}
 							</ul>
 						</nav>
 					</div>

@@ -2,6 +2,7 @@ import type { FC } from "react";
 import { Product } from "../../interfaces/product.interface";
 import { addToCart as addToCartApi } from "../../redux/cart/cartThunk";
 import { useAppDispatch } from "../../redux/store";
+import { Link } from "react-router-dom";
 
 interface ProductGalleryDetailsProps {
 	product?: Product;
@@ -30,7 +31,7 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 				</a>
 			</div>
 			<p className="product-price mb-1">
-				<ins className="new-price">${product?.base_price || "18"}.00</ins>
+				<ins className="new-price">${product?.base_price || "18.00"}</ins>
 			</p>
 			<p className="product-short-desc">
 				{ product?.description}
@@ -83,6 +84,7 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 							type="number"
 							min="1"
 							max="1000000"
+							defaultValue={product?.quantity}
 						/>
 						<button className="quantity-plus p-icon-plus-solid"></button>
 					</div>
@@ -106,16 +108,16 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 
 			<div className="product-meta">
 				<label>CATEGORIES:</label>
-				<a href="#">fruit</a> , <a href="#">daily needs</a>
+				<Link to={`/shop?category=${product?.category.name}`}>{ product?.category.name }</Link>
 				<br />
-				<label>sku:</label>
+				{/* <label>sku:</label>
 				<a href="#">mS46891357</a>
 				<br />
 				<label>tag:</label>
 				<a href="#">organic</a> , <a href="#">greenhouse</a> ,{" "}
 				<a href="#">fat</a> , <a href="#">healthy</a> , <a href="#">dairy</a> ,
 				<a href="#">vitamin</a>
-				<br />
+				<br /> */}
 				<label className="social-label">share:</label>
 				<div className="social-links">
 					<a href="#" className="social-link fab fa-facebook-f"></a>

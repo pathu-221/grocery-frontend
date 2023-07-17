@@ -11,29 +11,27 @@ interface ProductDetailPageProps {}
 
 const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 	const queryParams = new URLSearchParams(window.location.search);
-	const productId = queryParams.get('productId');
+	const productId = queryParams.get("productId");
 	const [product, setProduct] = useState<Product>();
 	const [images, setImages] = useState<string[]>();
 
 	useEffect(() => {
 		if (productId) loadProductDetail(productId);
-		
 	}, []);
 
 	useEffect(() => {
-		if (!product) return
-		
+		if (!product) return;
+
 		setImages(JSON.parse(product.images));
 	}, [product]);
 
 	const loadProductDetail = async (productId: string) => {
 		const data = await fetchProductbyId(productId);
 
-		if (!data.status) return
-		
+		if (!data.status) return;
+
 		setProduct(data.data);
-		
-	}
+	};
 
 	return (
 		<main className="main single-product">
@@ -50,7 +48,7 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 							</li>
 							<li>Default</li>
 						</ul>
-						<div className="product-image-nav">
+						{/* <div className="product-image-nav">
 							<a href="#" className="product-nav product-nav-prev">
 								<figure>
 									<img
@@ -73,7 +71,7 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 								</figure>
 								<i className="p-icon-arrow-long-right"></i>
 							</a>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</nav>
@@ -82,15 +80,15 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 				<div className="container">
 					<div className="product product-single product-simple row mb-8">
 						<div className="col-md-7">
-							<ProductGallery images={images}/>
+							<ProductGallery images={images} />
 						</div>
 						<div className="col-md-5">
-							<ProductGalleryDetails  product={product}/>
+							<ProductGalleryDetails product={product} />
 						</div>
 					</div>
 					<ProductContent />
 				</div>
-				<ProductRelated />
+				{product && <ProductRelated categoryName={product.category.name} />}
 			</div>
 		</main>
 	);
