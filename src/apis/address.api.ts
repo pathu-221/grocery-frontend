@@ -5,3 +5,17 @@ export async function fetchAllAddresses() {
     const data = await requestWithToken(`${import.meta.env.VITE_API_ADDRESS}/address`);
     return data;
 }
+
+export async function addAddresses(formData: any) {
+	const data = await requestWithToken(
+		`${import.meta.env.VITE_API_ADDRESS}/address`,
+		{
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		}
+	);
+	return data;
+}

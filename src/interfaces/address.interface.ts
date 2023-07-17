@@ -4,7 +4,7 @@ export interface Address {
     id:         string;
     user_id:    string;
     address_1:  string;
-    address_2:  string;
+    address_2?:  string;
     city:       string;
     state:      string;
     zip:        number;
