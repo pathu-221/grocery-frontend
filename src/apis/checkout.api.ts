@@ -1,6 +1,6 @@
 import { requestWithToken } from "../helpers/httpRequests";
 
-export async function placeOrder() {
+export async function placeOrder(addressId: string) {
     const data = await requestWithToken(
 			`${import.meta.env.VITE_API_ADDRESS}/orders`,
 			{
@@ -9,7 +9,7 @@ export async function placeOrder() {
 					"content-type": "application/json",
 				},
 				body: JSON.stringify({
-					addressId: "e2bf60c5-0835-49e6-8a0b-3a094007b10e",
+					addressId
 				}),
 			}
 		);

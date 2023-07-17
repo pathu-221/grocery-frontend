@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../redux/store";
 import { deleteFromCart, getCartItems } from "../redux/cart/cartThunk";
+import { Link } from "react-router-dom";
 
 interface CartDropDownProps {}
 
@@ -11,6 +12,13 @@ const CartDropDown: FC<CartDropDownProps> = () => {
 	const { cartItems } = useSelector((state: RootState) => state.cart)
 	const dispatch = useAppDispatch();
 	const [cartTotal, setCartTotal] = useState<number>();
+
+
+	const returnProductImage = (images: string) => {
+		const image = JSON.parse(images) as string[];
+
+		return image[0];
+	};
 
 	useEffect(() => {
 		dispatch(getCartItems());
@@ -50,14 +58,18 @@ const CartDropDown: FC<CartDropDownProps> = () => {
 						cartItems.map((item) => (
 							<div className="product product-mini" key={item.id}>
 								<figure className="product-media">
-									<a href="product-simple.html">
+									<Link to={`/product/${item.product.id}`}>
 										<img
-											src="images/cart/product.jpg"
+											src={ returnProductImage(item.product.images)}
 											alt="product"
+											style={{
+												maxHeight: '105px',
+												maxWidth: '84px'
+											}}
 											width="84"
 											height="105"
 										/>
-									</a>
+									</Link>
 									<a href="#"
 										onClick={() => {
 											dispatch(deleteFromCart(item.id));

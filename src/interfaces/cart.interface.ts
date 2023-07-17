@@ -15,4 +15,5 @@ export interface Product {
     id:         string;
     name:       string;
     base_price: number;
+    images:     string;
 }

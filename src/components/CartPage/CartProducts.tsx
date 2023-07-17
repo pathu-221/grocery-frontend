@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { addItem, removeItem } from "../../redux/cart/cartSlice";
 import {
 	deleteFromCart,
 	getCartItems,
@@ -8,7 +9,6 @@ import {
 } from "../../redux/cart/cartThunk";
 import { RootState, useAppDispatch } from "../../redux/store";
 import CartTotal from "./CartTotals";
-import { addItem, removeItem } from "../../redux/cart/cartSlice";
 
 interface CartProductsProps {}
 
@@ -17,9 +17,14 @@ const CartProducts: FC<CartProductsProps> = () => {
 	const { cartItems, error } = useSelector((state: RootState) => state.cart);
 	const [cartTotal, setCartTotal] = useState<number>(0);
 
+	const returnProductImage = (images: string) => {
+		const image = JSON.parse(images) as string[];
+
+		return image[0];
+	};
+
 	useEffect(() => {
 		loadCartItems();
-		console.log({ cartItems });
 	}, []);
 
 	useEffect(() => {
@@ -86,10 +91,14 @@ const CartProducts: FC<CartProductsProps> = () => {
 											<figure>
 												<a href="product-simple.html">
 													<img
-														src="images/subpage/cart/90x112.jpg"
+														src={ returnProductImage(cartItem.product.images)}
 														width="90"
 														height="112"
 														alt="product"
+														style={{
+															maxHeight: '112px',
+															maxWidth: '90px'
+														}}
 													/>
 												</a>
 											</figure>
@@ -155,8 +164,11 @@ const CartProducts: FC<CartProductsProps> = () => {
 						<a href="shop.html" className="btn btn-dim btn-icon-left mr-4 mb-4">
 							<i className="p-icon-arrow-long-left"></i>Continue Shopping
 						</a>
-						<button type="button" className="btn btn-outline btn-dim"
-						onClick={() => updateCartItems()}>
+						<button
+							type="button"
+							className="btn btn-outline btn-dim"
+							onClick={() => updateCartItems()}
+						>
 							Update Cart
 						</button>
 					</div>
