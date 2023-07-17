@@ -56,7 +56,7 @@ const Footer: FC<FooterProps> = () => {
                     </div>
                     <div className="footer-center">
                         <a href="demo1.html" className="logo-footer">
-                            <img src="images/logo.png" alt="logo-footer" width="171" height="41" />
+                            <img src="/images/logo.png" alt="logo-footer" width="171" height="41" />
                         </a>
                         <div className="social-links">
                             <a href="#" className="social-link fab fa-facebook-f" title="Facebook"></a>
@@ -81,7 +81,7 @@ const Footer: FC<FooterProps> = () => {
                 <div className="footer-bottom">
                     <p className="copyright">Panda eCommerce © 2022. All Rights Reserved</p>
                     <figure>
-                        <img src="images/payment.png" alt="payment" width="159" height="29" />
+                        <img src="/images/payment.png" alt="payment" width="159" height="29" />
                     </figure>
                 </div>
             </div>

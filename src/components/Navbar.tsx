@@ -21,7 +21,7 @@ const Navbar: FC<NavbarProps> = () => {
 							<i className="p-icon-bars-solid"></i>
 						</a>
 						<a href="demo1.html" className="logo">
-							<img src="images/logo.png" alt="logo" width="171" height="41" />
+							<img src="/images/logo.png" alt="logo" width="171" height="41" />
 						</a>
 						{/* <!-- End of Divider --> */}
 					</div>
