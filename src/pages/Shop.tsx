@@ -36,7 +36,7 @@ const ShopPage: FC<ShopPageProps> = () => {
 		setSortCriteria(criteria);
 		navigate({
 			pathname: "/shop",
-			search: `?sortBy=${criteria}`,
+			search: `?sortBy=${criteria}&category=${category}`,
 		});
 	};
 
