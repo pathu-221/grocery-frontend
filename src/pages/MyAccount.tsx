@@ -1,9 +1,11 @@
 import type { FC } from "react";
 import MyAccountPageTab from "../components/MyAccountPage/MyAccountTab";
 
+
 interface MyAccountPageProps {}
 
 const MyAccountPage: FC<MyAccountPageProps> = () => {
+
 	return (
 		<main className="main account-page">
 			<div
