@@ -18,7 +18,6 @@ const ProductRelated: FC<ProductRelatedProps> = ({ categoryName }) => {
 	// };
 
 	useEffect(() => {
-		console.log({ categoryName });
 		loadRelatedProducts();
 	}, []);
 

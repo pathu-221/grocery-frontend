@@ -1,7 +1,7 @@
 import type { ChangeEvent, FC, FormEvent } from "react";
 import { useState, useEffect } from "react";
 import { Address } from "../../interfaces/address.interface";
-import { addAddresses, fetchAllAddresses } from "../../apis/address.api";
+import { addAddress, editAddress, fetchAllAddresses } from "../../apis/address.api";
 
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
@@ -38,13 +38,27 @@ const Addresses: FC<AddressesProps> = () => {
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault();
-		console.log({ addressToEdit });
-		const data = await addAddresses({
-			...addressToEdit,
-		});
-		if (!data.status) return showToast("danger", data.msg);
 
-		showToast("success", data.msg);
+		let requestBody: any;
+
+		if (addressToEdit.id) {
+			requestBody = {
+				address_1: addressToEdit.address_1,
+				address_2: addressToEdit.address_2,
+				city: addressToEdit.city,
+				state: addressToEdit.state,
+				zip: addressToEdit.zip,
+				name: addressToEdit.name,
+			}
+		} else {
+			requestBody = addressToEdit;
+		}
+
+		const response = addressToEdit.id ? await editAddress(addressToEdit.id, requestBody) : await addAddress(addressToEdit);
+
+		if (!response.status) return showToast("danger", response.msg);
+
+		showToast("success", response.msg);
 		loadAddresses();
 		setShowModal(false);
 	};
@@ -129,7 +143,7 @@ const Addresses: FC<AddressesProps> = () => {
 									</p>
 									<a
 										onClick={() => {
-											setAddressToEdit(billingAddress);
+											setAddressToEdit(shippingAddress);
 											setShowModal(true);
 										}}
 										//href="#"

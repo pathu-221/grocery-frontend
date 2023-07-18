@@ -71,7 +71,6 @@ const ShopPage: FC<ShopPageProps> = () => {
 			pathname: "/shop",
 			search: `?sortBy=${sortCriteria}&category=${category}`,
 		});
-		console.log({ category, categoryName });
 
 	};
 
