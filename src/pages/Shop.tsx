@@ -36,7 +36,9 @@ const ShopPage: FC<ShopPageProps> = () => {
 		setSortCriteria(criteria);
 		navigate({
 			pathname: "/shop",
-			search: `?sortBy=${criteria}&category=${category}`,
+			search: category
+				? `?sortBy=${criteria}&category=${category}`
+				: `?sortBy=${criteria}`,
 		});
 	};
 
@@ -48,7 +50,7 @@ const ShopPage: FC<ShopPageProps> = () => {
 			// Remove the existing substring along with the comma
 			if (inputString.length === newSubstring.length) return inputString = '';
 			inputString =
-				inputString.slice(0, substringIndex - 1) +
+				inputString.slice(0, substringIndex) +
 				inputString.slice(substringIndex + newSubstring.length + 1);
 		} else {
 			// Add the new substring along with a comma
