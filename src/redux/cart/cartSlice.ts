@@ -53,11 +53,24 @@ export const cartSlice = createSlice({
 				if (action.payload) state.error = action.payload;
 			});
 
-		builder.addCase(addToCart.fulfilled, (_, { payload }) => {
+		builder.addCase(addToCart.fulfilled, (state, { payload }) => {
+			const existingCartItem = state.cartItems?.find(
+				(cartItem) => cartItem.id === payload.data.id
+			);
+
+			if (existingCartItem) {
+				// Item already exists, update the quantity
+				existingCartItem.quantity = payload.data.quantity;
+			} else {
+				// Item doesn't exist, add it to cartItems array
+				state.cartItems?.push({ ...payload.data });
+			}
+
 			showToast("success", payload.msg);
 		});
 
 		builder.addCase(deleteFromCart.fulfilled, (_, { payload }) => {
+			console.log({ payload });
 			showToast("success", payload.msg);
 		});
 		builder.addCase(updateCart.fulfilled, (_, { payload }) => {

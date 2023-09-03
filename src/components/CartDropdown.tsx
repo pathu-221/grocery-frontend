@@ -8,11 +8,9 @@ import { Link } from "react-router-dom";
 interface CartDropDownProps {}
 
 const CartDropDown: FC<CartDropDownProps> = () => {
-	
-	const { cartItems } = useSelector((state: RootState) => state.cart)
+	const { cartItems } = useSelector((state: RootState) => state.cart);
 	const dispatch = useAppDispatch();
 	const [cartTotal, setCartTotal] = useState<number>();
-
 
 	const returnProductImage = (images: string) => {
 		const image = JSON.parse(images) as string[];
@@ -28,7 +26,6 @@ const CartDropDown: FC<CartDropDownProps> = () => {
 		calculateTotal();
 	}, [cartItems]);
 
-
 	const calculateTotal = () => {
 		let total = 0;
 		cartItems?.map((cartItem) => {
@@ -41,7 +38,7 @@ const CartDropDown: FC<CartDropDownProps> = () => {
 		<div className="dropdown cart-dropdown off-canvas mr-0 mr-lg-2">
 			<a href="#" className="cart-toggle link">
 				<i className="p-icon-cart-solid">
-					<span className="cart-count">{cartItems ? cartItems.length : 0 }</span>
+					<span className="cart-count">{cartItems ? cartItems.length : 0}</span>
 				</i>
 			</a>
 			<div className="canvas-overlay"></div>
@@ -60,22 +57,25 @@ const CartDropDown: FC<CartDropDownProps> = () => {
 								<figure className="product-media">
 									<Link to={`/product/${item.product.id}`}>
 										<img
-											src={ returnProductImage(item.product.images)}
+											src={returnProductImage(item.product.images)}
 											alt="product"
 											style={{
-												maxHeight: '105px',
-												maxWidth: '84px'
+												maxHeight: "105px",
+												maxWidth: "84px",
 											}}
 											width="84"
 											height="105"
 										/>
 									</Link>
-									<a href="#"
+									<a
+										href="#"
 										onClick={() => {
 											dispatch(deleteFromCart(item.id));
 											dispatch(getCartItems());
 										}}
-										title="Remove Product" className="btn-remove">
+										title="Remove Product"
+										className="btn-remove"
+									>
 										<i className="p-icon-times"></i>
 										<span className="sr-only">Close</span>
 									</a>
@@ -86,7 +86,9 @@ const CartDropDown: FC<CartDropDownProps> = () => {
 									</a>
 									<div className="price-box">
 										<span className="product-quantity">{item.quantity}</span>
-										<span className="product-price">${ item.product.base_price }</span>
+										<span className="product-price">
+											${item.product.base_price}
+										</span>
 									</div>
 								</div>
 							</div>
@@ -96,7 +98,7 @@ const CartDropDown: FC<CartDropDownProps> = () => {
 				{/* <!-- End of Products  --> */}
 				<div className="cart-total">
 					<label>Subtotal:</label>
-					<span className="price">${ cartTotal || '0'}</span>
+					<span className="price">${cartTotal || "0"}</span>
 				</div>
 				{/* <!-- End of Cart Total --> */}
 				<div className="cart-action">
