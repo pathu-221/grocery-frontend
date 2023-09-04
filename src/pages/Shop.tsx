@@ -16,7 +16,10 @@ const ShopPage: FC<ShopPageProps> = () => {
 
 	const urlParams = new URLSearchParams(window.location.search);
 	const sortBy = urlParams.get("sortBy") || undefined;
-	let category = urlParams.get("category") || undefined;
+	const category = urlParams.get("category") || undefined;
+	const [selectedCategories, setSelectedCategories] = useState<string[]>([
+		...(category?.split(",") || ""),
+	]);
 
 	const loadProducts = async () => {
 		const data = await fetchAllProducts(category, sortBy);
@@ -30,166 +33,33 @@ const ShopPage: FC<ShopPageProps> = () => {
 
 	useEffect(() => {
 		loadProducts();
-	}, [sortCriteria, category]);
+	}, [sortCriteria, selectedCategories]);
 
 	const handleSortByChange = (criteria: string) => {
 		setSortCriteria(criteria);
-		navigate({
-			pathname: "/shop",
-			search: category
-				? `?sortBy=${criteria}&category=${category}`
-				: `?sortBy=${criteria}`,
-		});
+		urlParams.set("sortBy", criteria);
+		const newURL = `${window.location.pathname}?${urlParams.toString()}`;
+		window.history.replaceState({}, "", newURL);
 	};
 
-	const manipulateString = (inputString: string, newSubstring: string) => {
-		// Check if the substring exists in the string
-		const substringIndex = inputString.indexOf(newSubstring);
+	const handleCategoryChange = (category: string) => {
+		const updatedSelectedCategories = [...selectedCategories];
 
-		if (substringIndex !== -1) {
-			// Remove the existing substring along with the comma
-			if (inputString.length === newSubstring.length) return inputString = '';
-			inputString =
-				inputString.slice(0, substringIndex) +
-				inputString.slice(substringIndex + newSubstring.length + 1);
+		const index = updatedSelectedCategories.indexOf(category);
+
+		if (index === -1) {
+			updatedSelectedCategories.push(category);
 		} else {
-			// Add the new substring along with a comma
-			if (inputString.length > 0 && !inputString.endsWith(",")) {
-				inputString += ",";
-			}
-			inputString += newSubstring;
+			updatedSelectedCategories.splice(index, 1);
 		}
 
-		return inputString;
-	}
-
-	const handleCategoryChange = (categoryName: string) => {
-
-		if (!category) category = categoryName;
-		else {
-			category = manipulateString(category, categoryName);
-		}
-		navigate({
-			pathname: "/shop",
-			search: `?sortBy=${sortCriteria}&category=${category}`,
-		});
-
+		setSelectedCategories(updatedSelectedCategories);
+		urlParams.set("category", updatedSelectedCategories.join(","));
+		const newURL = `${window.location.pathname}?${urlParams.toString()}`;
+		navigate(newURL);
 	};
-
 	return (
 		<main className="main">
-			{/* <div
-				className="page-header cph-header pl-4 pr-4"
-				style={{ backgroundColor: " #fff7ec" }}
-			>
-				<h1 className="page-title font-weight-light text-capitalize">
-					Panda Shop
-				</h1>
-				<div className="category-container row justify-content-center cols-2 cols-xs-3 cols-sm-4 cols-md-6 pt-6">
-					<div className="category category-ellipse mb-4 mb-md-0">
-						<a href="#">
-							<figure>
-								<img
-									src="images/shop/cat.jpg"
-									alt="category"
-									width="160"
-									height="161"
-								/>
-							</figure>
-						</a>
-						<div className="category-content">
-							<h3 className="category-name">
-								<a href="#">Canned</a>
-							</h3>
-						</div>
-					</div>
-					<div className="category category-ellipse mb-4 mb-md-0">
-						<a href="#">
-							<figure>
-								<img
-									src="images/shop/cat.jpg"
-									alt="category"
-									width="160"
-									height="161"
-								/>
-							</figure>
-						</a>
-						<div className="category-content">
-							<h3 className="category-name">
-								<a href="#">Fruits</a>
-							</h3>
-						</div>
-					</div>
-					<div className="category category-ellipse mb-4 mb-md-0">
-						<a href="#">
-							<figure>
-								<img
-									src="images/shop/cat.jpg"
-									alt="category"
-									width="160"
-									height="161"
-								/>
-							</figure>
-						</a>
-						<div className="category-content">
-							<h3 className="category-name">
-								<a href="#">Vegetables</a>
-							</h3>
-						</div>
-					</div>
-					<div className="category category-ellipse">
-						<a href="#">
-							<figure>
-								<img
-									src="images/shop/cat.jpg"
-									alt="category"
-									width="160"
-									height="161"
-								/>
-							</figure>
-						</a>
-						<div className="category-content">
-							<h3 className="category-name">
-								<a href="#">Meats</a>
-							</h3>
-						</div>
-					</div>
-					<div className="category category-ellipse">
-						<a href="#">
-							<figure>
-								<img
-									src="images/shop/cat.jpg"
-									alt="category"
-									width="160"
-									height="161"
-								/>
-							</figure>
-						</a>
-						<div className="category-content">
-							<h3 className="category-name">
-								<a href="#">Coffee</a>
-							</h3>
-						</div>
-					</div>
-					<div className="category category-ellipse">
-						<a href="#">
-							<figure>
-								<img
-									src="images/shop/cat.jpg"
-									alt="category"
-									width="160"
-									height="161"
-								/>
-							</figure>
-						</a>
-						<div className="category-content">
-							<h3 className="category-name">
-								<a href="#">Snack</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-			</div> */}
 			<nav className="breadcrumb-nav has-border">
 				<div className="container">
 					<ul className="breadcrumb">
@@ -203,7 +73,10 @@ const ShopPage: FC<ShopPageProps> = () => {
 			<div className="page-content mb-10 shop-page">
 				<div className="container">
 					<div className="row main-content-wrap">
-						<FilterOptions onClick={handleCategoryChange} />
+						<FilterOptions
+							selectedCategories={selectedCategories}
+							onClick={handleCategoryChange}
+						/>
 						<div className="col-lg-9 main-content pl-lg-6">
 							<nav className="toolbox sticky-toolbox sticky-content fix-top">
 								<div className="toolbox-left">
@@ -238,12 +111,6 @@ const ShopPage: FC<ShopPageProps> = () => {
 											<option value="36">36</option>
 										</select>
 									</div>
-									{/* <div className="toolbox-item toolbox-layout">
-										<a
-											href="shop-4-cols.html"
-											className="p-icon-grid btn-layout active"
-										></a>
-									</div> */}
 								</div>
 							</nav>
 							<div className="row product-wrapper cols-lg-4 cols-md-3 cols-2">

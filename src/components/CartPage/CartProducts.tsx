@@ -9,6 +9,7 @@ import {
 } from "../../redux/cart/cartThunk";
 import { RootState, useAppDispatch } from "../../redux/store";
 import CartTotal from "./CartTotals";
+import showToast from "../../helpers/showToast";
 
 interface CartProductsProps {}
 
@@ -61,6 +62,7 @@ const CartProducts: FC<CartProductsProps> = () => {
 				})
 			);
 		});
+		showToast("success", "Cart updated successfully!");
 		dispatch(getCartItems());
 	};
 	return (
@@ -91,13 +93,13 @@ const CartProducts: FC<CartProductsProps> = () => {
 											<figure>
 												<a href="product-simple.html">
 													<img
-														src={ returnProductImage(cartItem.product.images)}
+														src={returnProductImage(cartItem.product.images)}
 														width="90"
 														height="112"
 														alt="product"
 														style={{
-															maxHeight: '112px',
-															maxWidth: '90px'
+															maxHeight: "112px",
+															maxWidth: "90px",
 														}}
 													/>
 												</a>
@@ -142,7 +144,10 @@ const CartProducts: FC<CartProductsProps> = () => {
 										</td>
 										<td className="product-price">
 											<span className="amount">
-												${cartItem.quantity * cartItem.product.base_price}
+												$
+												{(
+													cartItem.quantity * cartItem.product.base_price
+												).toFixed(2)}
 											</span>
 										</td>
 										<td className="product-remove">

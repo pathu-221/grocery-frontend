@@ -63,7 +63,6 @@ export const cartSlice = createSlice({
 			state.cartItems = payload.data;
 		});
 		builder.addCase(updateCart.fulfilled, (state, { payload }) => {
-			showToast("success", payload.msg);
 			state.cartItems = payload.data;
 		});
 	},

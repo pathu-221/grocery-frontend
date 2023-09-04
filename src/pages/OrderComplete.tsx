@@ -38,7 +38,6 @@ const OrderCompletePage: FC<OrderCompletePageProps> = () => {
 		return formattedDate;
 	};
 
-
 	return (
 		<main className="main order">
 			<div className="page-content pt-8 pb-10 mb-10">
@@ -145,7 +144,7 @@ const OrderCompletePage: FC<OrderCompletePageProps> = () => {
 													</span>
 												</td>
 												<td className="product-price">
-													${orderItem.product_price}
+													${orderItem.product_price.toFixed(2)}
 												</td>
 											</tr>
 										))}
@@ -187,7 +186,7 @@ const OrderCompletePage: FC<OrderCompletePageProps> = () => {
 									</tbody>
 								</table>
 							</div>
-							</div>
+						</div>
 					)}
 				</div>
 			</div>

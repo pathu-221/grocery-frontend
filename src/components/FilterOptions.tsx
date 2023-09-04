@@ -6,12 +6,20 @@ import showToast from "../helpers/showToast";
 
 interface FilterOptionsProps {
 	onClick: (category: string) => void;
+	selectedCategories: string[];
 }
 
 const FilterOptions: FC<FilterOptionsProps> = ({ onClick }) => {
 	const [categories, setCategories] = useState<Category[]>();
 
+	const urlParams = new URLSearchParams(window.location.search);
 
+	const category = urlParams.get("category") || undefined;
+	const [selectedCategories, setSelectedCategories] = useState<string[]>([
+		...(category?.split(",") || ""),
+	]);
+
+	
 	useEffect(() => {
 		loadCategories();
 	}, []);
@@ -47,43 +55,24 @@ const FilterOptions: FC<FilterOptionsProps> = ({ onClick }) => {
 							</form>
 						</div>
 					</div>
-					{/* <div className="widget widget-collapsible">
-						<h3 className="widget-title title-underline">
-							<span className="title-text">Nutrition</span>
-						</h3>
-						<ul className="widget-body filter-items">
-							<li>
-								<a href="#">High Fibre</a>
-							</li>
-							<li>
-								<a href="#">Low Calorie</a>
-							</li>
-							<li>
-								<a href="#">No Sugar Added</a>
-							</li>
-							<li>
-								<a href="#">Vegetarian</a>
-							</li>
-							<li>
-								<a href="#">Low Fat</a>
-							</li>
-							<li>
-								<a href="#">Whole Grain</a>
-							</li>
-						</ul>
-					</div> */}
+
 					<div className="widget widget-collapsible">
 						<h3 className="widget-title title-underline">
 							<span className="title-text">Categories</span>
 						</h3>
-						<ul className="widget-body filter-items">
-							{
-								categories && categories.map((category) => (
-									<li key={category.id} onClick={() => onClick(category.name)}>
-										<a href='#'>{category.name}</a>
+						<ul className="widget-body filter-items active opened">
+							{categories &&
+								categories.map((category) => (
+									<li
+										key={category.id}
+										className={`${
+											selectedCategories.includes(category.name) ? "active" : ""
+										}`}
+										onClick={() => onClick(category.name)}
+									>
+										<a href="#">{category.name}</a>
 									</li>
-								))
-							}
+								))}
 						</ul>
 					</div>
 					<div className="widget widget-collapsible">
@@ -155,40 +144,6 @@ const FilterOptions: FC<FilterOptionsProps> = ({ onClick }) => {
 							</ul>
 						</div>
 					</div>
-					{/* <div className="widget widget-collapsible">
-						<h3 className="widget-title title-underline">
-							<span className="title-text">Product Tags</span>
-						</h3>
-						<div className="widget-body mt-1">
-							<a href="#" className="tag">
-								Organic
-							</a>
-							<a href="#" className="tag">
-								greenhouse
-							</a>
-							<a href="#" className="tag">
-								fat
-							</a>
-							<a href="#" className="tag">
-								healthy
-							</a>
-							<a href="#" className="tag">
-								dairy
-							</a>
-							<a href="#" className="tag">
-								vitamin
-							</a>
-							<a href="#" className="tag">
-								diet
-							</a>
-							<a href="#" className="tag">
-								nutrition
-							</a>
-							<a href="#" className="tag">
-								cholesterol
-							</a>
-						</div>
-					</div> */}
 				</div>
 			</div>
 		</aside>
