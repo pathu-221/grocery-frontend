@@ -75,7 +75,7 @@ const Featured: FC<FeaturedProps> = () => {
 						for you
 					</h2>
 					<a
-						href="shop.html"
+						href="/shop"
 						className="btn btn-dark appear-animate"
 						data-animation-options="{
                                             'name': 'fadeInUpShorter',

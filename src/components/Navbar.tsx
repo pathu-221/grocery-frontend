@@ -1,15 +1,13 @@
 import type { FC } from "react";
 import LoginAndRegister from "./LoginAndRegisterOffCanvas";
 import CartDropDown from "./CartDropdown";
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router';
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 interface NavbarProps {}
 
 const Navbar: FC<NavbarProps> = () => {
-
 	const navigate = useNavigate();
-
 
 	return (
 		<div>
@@ -20,7 +18,7 @@ const Navbar: FC<NavbarProps> = () => {
 						<a href="#" className="mobile-menu-toggle" title="Mobile Menu">
 							<i className="p-icon-bars-solid"></i>
 						</a>
-						<a href="demo1.html" className="logo">
+						<a href="/" className="logo">
 							<img src="/images/logo.png" alt="logo" width="171" height="41" />
 						</a>
 						{/* <!-- End of Divider --> */}

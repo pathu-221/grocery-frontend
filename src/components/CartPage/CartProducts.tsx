@@ -91,7 +91,7 @@ const CartProducts: FC<CartProductsProps> = () => {
 									<tr key={cartItem.id}>
 										<td className="product-thumbnail">
 											<figure>
-												<a href="product-simple.html">
+												<a href="">
 													<img
 														src={returnProductImage(cartItem.product.images)}
 														width="90"
@@ -107,9 +107,7 @@ const CartProducts: FC<CartProductsProps> = () => {
 										</td>
 										<td className="product-name">
 											<div className="product-name-section">
-												<a href="product-simple.html">
-													{cartItem.product.name}
-												</a>
+												<a href="">{cartItem.product.name}</a>
 											</div>
 										</td>
 										<td className="product-subtotal">
