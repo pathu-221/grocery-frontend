@@ -1,6 +1,9 @@
 import type { FC } from "react";
 import { Product } from "../../interfaces/product.interface";
-import { addToCart as addToCartApi } from "../../redux/cart/cartThunk";
+import {
+	addToCart as addToCartApi,
+	getCartItems,
+} from "../../redux/cart/cartThunk";
 import { useAppDispatch } from "../../redux/store";
 import { Link } from "react-router-dom";
 
@@ -9,12 +12,12 @@ interface ProductGalleryDetailsProps {
 }
 
 const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
-
 	const dispatch = useAppDispatch();
 	const addToCart = async () => {
-		if (!product) return
-		dispatch(addToCartApi(product.id))
-	}
+		if (!product) return;
+		dispatch(addToCartApi(product.id));
+		dispatch(getCartItems());
+	};
 
 	return (
 		<div className="product-details">
@@ -33,9 +36,7 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 			<p className="product-price mb-1">
 				<ins className="new-price">${product?.base_price || "18.00"}</ins>
 			</p>
-			<p className="product-short-desc">
-				{ product?.description}
-			</p>
+			<p className="product-short-desc">{product?.description}</p>
 			{/* <ul className="list list-circle">
 				<li>
 					<i className="far fa-circle"></i>Nunc id cursus metus aliquam.
@@ -90,7 +91,9 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 					</div>
 					<button
 						className="btn-product btn-cart ls-normal font-weight-semi-bold"
-						onClick={() => addToCart() }
+						onClick={() => {
+							addToCart();
+						}}
 					>
 						<i className="p-icon-cart-solid"></i>ADD TO CART
 					</button>
@@ -108,7 +111,9 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 
 			<div className="product-meta">
 				<label>CATEGORIES:</label>
-				<Link to={`/shop?category=${product?.category.name}`}>{ product?.category.name }</Link>
+				<Link to={`/shop?category=${product?.category.name}`}>
+					{product?.category.name}
+				</Link>
 				<br />
 				{/* <label>sku:</label>
 				<a href="#">mS46891357</a>

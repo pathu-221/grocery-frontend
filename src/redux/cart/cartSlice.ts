@@ -54,27 +54,17 @@ export const cartSlice = createSlice({
 			});
 
 		builder.addCase(addToCart.fulfilled, (state, { payload }) => {
-			const existingCartItem = state.cartItems?.find(
-				(cartItem) => cartItem.id === payload.data.id
-			);
-
-			if (existingCartItem) {
-				// Item already exists, update the quantity
-				existingCartItem.quantity = payload.data.quantity;
-			} else {
-				// Item doesn't exist, add it to cartItems array
-				state.cartItems?.push({ ...payload.data });
-			}
-
 			showToast("success", payload.msg);
+			state.cartItems = payload.data;
 		});
 
-		builder.addCase(deleteFromCart.fulfilled, (_, { payload }) => {
-			console.log({ payload });
+		builder.addCase(deleteFromCart.fulfilled, (state, { payload }) => {
 			showToast("success", payload.msg);
+			state.cartItems = payload.data;
 		});
-		builder.addCase(updateCart.fulfilled, (_, { payload }) => {
+		builder.addCase(updateCart.fulfilled, (state, { payload }) => {
 			showToast("success", payload.msg);
+			state.cartItems = payload.data;
 		});
 	},
 });

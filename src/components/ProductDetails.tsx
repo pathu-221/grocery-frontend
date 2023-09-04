@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Product } from "../interfaces/product.interface";
-import { addToCart } from "../redux/cart/cartThunk";
+import { addToCart, getCartItems } from "../redux/cart/cartThunk";
 import { useAppDispatch } from "../redux/store";
 
 interface ProductDetailsProps {
@@ -38,9 +38,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 						// width="295px"
 						// height="369px"
 						style={{
-							height: '200px',
-							width: '100%'
-							
+							height: "200px",
+							width: "100%",
 						}}
 					/>
 				</a>
@@ -56,6 +55,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 						title="Add to Cart"
 						onClick={() => {
 							if (product) dispatch(addToCart(product?.id));
+							dispatch(getCartItems());
 						}}
 					>
 						<i className="p-icon-cart-solid"></i>
