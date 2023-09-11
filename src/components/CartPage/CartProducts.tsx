@@ -10,6 +10,7 @@ import {
 import { RootState, useAppDispatch } from "../../redux/store";
 import CartTotal from "./CartTotals";
 import showToast from "../../helpers/showToast";
+import { getImgeUrl } from "../../helpers/getImageUrl";
 
 interface CartProductsProps {}
 
@@ -93,7 +94,9 @@ const CartProducts: FC<CartProductsProps> = () => {
 											<figure>
 												<a href="">
 													<img
-														src={returnProductImage(cartItem.product.images)}
+														src={getImgeUrl(
+															returnProductImage(cartItem.product.images)
+														)}
 														width="90"
 														height="112"
 														alt="product"

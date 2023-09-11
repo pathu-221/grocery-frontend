@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../redux/store";
 import { deleteFromCart, getCartItems } from "../redux/cart/cartThunk";
 import { Link } from "react-router-dom";
+import { getImgeUrl } from "../helpers/getImageUrl";
 
 interface CartDropDownProps {}
 
@@ -57,7 +58,7 @@ const CartDropDown: FC<CartDropDownProps> = () => {
 								<figure className="product-media">
 									<Link to={`/product/${item.product.id}`}>
 										<img
-											src={returnProductImage(item.product.images)}
+											src={getImgeUrl(returnProductImage(item.product.images))}
 											alt="product"
 											style={{
 												maxHeight: "105px",

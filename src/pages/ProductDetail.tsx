@@ -48,30 +48,6 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 							</li>
 							<li>Default</li>
 						</ul>
-						{/* <div className="product-image-nav">
-							<a href="#" className="product-nav product-nav-prev">
-								<figure>
-									<img
-										src="images/products/product-single/navigation/prev.jpg"
-										width="150"
-										height="150"
-										alt="nav-prev"
-									/>
-								</figure>
-								<i className="p-icon-arrow-long-left"></i>
-							</a>
-							<a href="#" className="product-nav product-nav-next">
-								<figure>
-									<img
-										src="images/products/product-single/navigation/next.jpg"
-										width="150"
-										height="150"
-										alt="nav-next"
-									/>
-								</figure>
-								<i className="p-icon-arrow-long-right"></i>
-							</a>
-						</div> */}
 					</div>
 				</div>
 			</nav>
@@ -79,10 +55,10 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 			<div className="page-content">
 				<div className="container">
 					<div className="product product-single product-simple row mb-8">
-						<div className="col-md-7">
+						<div className="col-md-6">
 							<ProductGallery images={images} />
 						</div>
-						<div className="col-md-5">
+						<div className="col-md-6">
 							<ProductGalleryDetails product={product} />
 						</div>
 					</div>
@@ -90,7 +66,7 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 				</div>
 				{product && <ProductRelated categoryName={product.category.name} />}
 			</div>
-		</main>
+		</main> 
 	);
 };
 

@@ -37,45 +37,7 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 				<ins className="new-price">${product?.base_price || "18.00"}</ins>
 			</p>
 			<p className="product-short-desc">{product?.description}</p>
-			{/* <ul className="list list-circle">
-				<li>
-					<i className="far fa-circle"></i>Nunc id cursus metus aliquam.
-				</li>
-				<li>
-					<i className="far fa-circle"></i>Vel pretium lectus quam id leo in
-					vitae turpis massa.
-				</li>
-				<li>
-					<i className="far fa-circle"></i>Eget sit amet tellus cras adipiscing
-					enim eu.
-				</li>
-				<li>
-					<i className="far fa-circle"></i>Tellus rutrumn tellus pellentesque eu
-					tincidunt tortor
-				</li>
-			</ul> */}
-			{/* <div className="product-form product-unit mb-2 pt-1">
-				<label>WEIGHT UNIT</label>
-				<div className="product-form-group pt-1">
-					<div className="product-variations mb-1">
-						<a href="#">EACH</a>
-						<a href="#">POUND</a>
-						<a href="#">1LB</a>
-						<a href="#">1KG</a>
-						<a href="#">500G</a>
-					</div>
-					<a
-						href="#"
-						className="product-variation-clean"
-						style={{ display: "none" }}
-					>
-						Clean All
-					</a>
-				</div>
-			</div> */}
-			{/* <div className="product-variation-price">
-				<span>$239.00</span>
-			</div> */}
+
 			<div className="product-form product-qty pt-1">
 				<div className="product-form-group">
 					<div className="input-group">

@@ -1,12 +1,8 @@
 import type { FC } from "react";
 
+interface ProductReviewsProps {}
 
-interface ProductReviewsProps {
-}
-
-const ProductReviews: FC<ProductReviewsProps> = ({ }) => {
-
-
+const ProductReviews: FC<ProductReviewsProps> = ({}) => {
 	return (
 		<div className="content-reviews pt-9" id="content-reviews">
 			<div className="with-toolbox">
@@ -119,7 +115,7 @@ const ProductReviews: FC<ProductReviewsProps> = ({ }) => {
 								<div className="progress-value">0%</div>
 							</div>
 						</div>
-						{/* <a className="btn btn-dim submit-review-toggle">Submit Review</a> */}
+						<a className="btn btn-dim submit-review-toggle">Submit Review</a>
 					</div>
 				</div>
 				<div className="col-lg-8 comments border-no">

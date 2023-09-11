@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { Product } from "../interfaces/product.interface";
 import { addToCart, getCartItems } from "../redux/cart/cartThunk";
 import { useAppDispatch } from "../redux/store";
+import { getImgeUrl } from "../helpers/getImageUrl";
 
 interface ProductDetailsProps {
 	product?: Product;
@@ -33,7 +34,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 					}}
 				>
 					<img
-						src={images[0] || " images/products/295x369.jpg"}
+						src={getImgeUrl(images[0] || " images/products/295x369.jpg")}
 						alt="product"
 						// width="295px"
 						// height="369px"
