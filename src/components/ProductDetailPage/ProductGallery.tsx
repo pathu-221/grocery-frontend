@@ -13,7 +13,7 @@ const ProductGallery: FC<ProductGalleryProps> = ({ images }) => {
 				{images && (
 					<Carousel infiniteLoop showThumbs showArrows>
 						{images.map((image) => (
-							<figure className="">
+							<figure className="product-image">
 								<img
 									src={getImgeUrl(image)}
 									alt="2"

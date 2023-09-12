@@ -55,18 +55,18 @@ const ProductDetailPage: FC<ProductDetailPageProps> = () => {
 			<div className="page-content">
 				<div className="container">
 					<div className="product product-single product-simple row mb-8">
-						<div className="col-md-6">
+						<div className="col-md-5">
 							<ProductGallery images={images} />
 						</div>
-						<div className="col-md-6">
+						<div className="col-md-7">
 							<ProductGalleryDetails product={product} />
 						</div>
 					</div>
-					<ProductContent />
+					<ProductContent productId={productId || ""} />
 				</div>
 				{product && <ProductRelated categoryName={product.category.name} />}
 			</div>
-		</main> 
+		</main>
 	);
 };
 

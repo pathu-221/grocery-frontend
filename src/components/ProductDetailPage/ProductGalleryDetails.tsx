@@ -40,7 +40,7 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 
 			<div className="product-form product-qty pt-1">
 				<div className="product-form-group">
-					<div className="input-group">
+					<div className="input-group" style={{ gridColumn: 9 }}>
 						<button className="quantity-minus p-icon-minus-solid"></button>
 						<input
 							className="quantity form-control"
@@ -77,14 +77,6 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 					{product?.category.name}
 				</Link>
 				<br />
-				{/* <label>sku:</label>
-				<a href="#">mS46891357</a>
-				<br />
-				<label>tag:</label>
-				<a href="#">organic</a> , <a href="#">greenhouse</a> ,{" "}
-				<a href="#">fat</a> , <a href="#">healthy</a> , <a href="#">dairy</a> ,
-				<a href="#">vitamin</a>
-				<br /> */}
 				<label className="social-label">share:</label>
 				<div className="social-links">
 					<a href="#" className="social-link fab fa-facebook-f"></a>

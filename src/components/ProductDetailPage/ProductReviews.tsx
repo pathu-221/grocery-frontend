@@ -1,38 +1,62 @@
-import type { FC } from "react";
+import { useFormik } from "formik";
+import { useState, useEffect, type FC } from "react";
+import Modal from "react-responsive-modal";
+import { object, string } from "yup";
+import { addReview, fetchAllreviews } from "../../apis/review.api";
+import showToast from "../../helpers/showToast";
+import { Review } from "../../interfaces/review.interface";
+import { getFormattedDate } from "../../helpers/getFormattedDate";
 
-interface ProductReviewsProps {}
+interface ProductReviewsProps {
+	productId?: string;
+}
 
-const ProductReviews: FC<ProductReviewsProps> = ({}) => {
+const ProductReviews: FC<ProductReviewsProps> = ({ productId }) => {
+	const [showReviewModal, setShowReviewModal] = useState(false);
+	const [reviews, setReviews] = useState<Review[]>([]);
+
+	const reviewFormik = useFormik({
+		initialValues: {
+			productId: productId || "",
+			title: "",
+			comment: "",
+			rating: 5,
+		},
+		validationSchema: object({
+			title: string().required("Review title is required"),
+			comment: string().required("Review content is required"),
+		}),
+		onSubmit: async (values) => {
+			const requestBody = {
+				product_id: values.productId,
+				title: values.title,
+				comment: values.comment,
+				rating: values.rating,
+			};
+			const response = await addReview(requestBody);
+			if (!response.status) return showToast("danger", response.msg);
+
+			showToast("success", response.msg);
+			setShowReviewModal(false);
+		},
+	});
+
+	useEffect(() => {
+		loadReviews();
+	}, []);
+
+	const loadReviews = async () => {
+		const response = await fetchAllreviews(productId || "");
+		if (!response.status) return showToast("danger", response.msg);
+
+		setReviews(response.data);
+	};
 	return (
 		<div className="content-reviews pt-9" id="content-reviews">
 			<div className="with-toolbox">
 				<h2 className="title title-line title-underline mb-8">
 					<span>Customer Reviews</span>
 				</h2>
-				{/* <div className="toolbox-group">
-					<div className="review-toolbox mr-4">
-						<select name="orderby" className="form-control">
-							<option value="">All Reviews</option>
-							<option value="image" selected={true}>
-								With Images
-							</option>
-							<option value="video">With Videos</option>
-						</select>
-					</div>
-					<div className="review-toolbox">
-						<select name="orderby" className="form-control">
-							<option value="">All Stars</option>
-							<option value="five" selected={true}>
-								Five Stars
-							</option>
-							<option value="four">Four Stars</option>
-							<option value="three">Three Stars</option>
-							<option value="two">Two Stars</option>
-							<option value="one">One Stars</option>
-							<option value="no">No Stars</option>
-						</select>
-					</div>
-				</div> */}
 			</div>
 			<div className="row pb-10">
 				<div className="col-lg-4 mb-4 sticky-sidebar-wrapper">
@@ -115,186 +139,154 @@ const ProductReviews: FC<ProductReviewsProps> = ({}) => {
 								<div className="progress-value">0%</div>
 							</div>
 						</div>
-						<a className="btn btn-dim submit-review-toggle">Submit Review</a>
+						<a className="btn btn-dim" onClick={() => setShowReviewModal(true)}>
+							Submit Review
+						</a>
 					</div>
 				</div>
 				<div className="col-lg-8 comments border-no">
 					<ul className="comments-list">
-						<li>
-							<div className="comment">
-								<figure className="comment-media">
-									<a href="#">
-										<img
-											src="images/products/product-single/agent/Simple1.jpg"
-											width="100"
-											height="100"
-											alt="avatar"
-										/>
-									</a>
-								</figure>
-								<div className="comment-body mt-2 mt-sm-0">
-									<div className="comment-rating ratings-container">
-										<div className="ratings-full">
-											<span
-												className="ratings"
-												style={{ width: "100%" }}
-											></span>
-											<span className="tooltiptext tooltip-top"></span>
+						{reviews &&
+							reviews.map((review) => (
+								<li>
+									<div className="comment">
+										<figure className="comment-media">
+											<a href="#">
+												<img
+													src="images/products/product-single/agent/Simple1.jpg"
+													width="100"
+													height="100"
+													alt="avatar"
+												/>
+											</a>
+										</figure>
+										<div className="comment-body mt-2 mt-sm-0">
+											<div className="comment-rating ratings-container">
+												<div className="ratings-full">
+													<span
+														className="ratings"
+														style={{ width: `${review.rating * 20}%` }}
+													></span>
+													<span className="tooltiptext tooltip-top"></span>
+												</div>
+											</div>
+											<div className="comment-user">
+												<span className="comment-date">
+													by{" "}
+													<span className="font-weight-semi-bold text-uppercase text-dim">
+														{`${review.user.first_name} ${review.user.last_name} `}
+													</span>
+													on {getFormattedDate(review.created_at)}
+												</span>
+											</div>
+											<div className="comment-description">{review.title}</div>
+											<div className="comment-content">
+												<p>{review.comment}</p>
+											</div>
 										</div>
 									</div>
-									<div className="comment-user">
-										<span className="comment-date">
-											by{" "}
-											<span className="font-weight-semi-bold text-uppercase text-dim">
-												ANNA
-											</span>
-											on July 14, 2021
-										</span>
-									</div>
-									<div className="comment-description">Very Good!</div>
-									<div className="comment-content">
-										<p>
-											Lorem ipsum dolor sit amt, consectetur adipiscing elit,
-											sed do eiusmod tempor incididunt ut labore et dolore magna
-											aliqua. Venenatis tellus in metus enenatis tellus in metus
-											vulputate eu scelerisque felis.vulputate eu scelerisque
-											felis.
-										</p>
-									</div>
-									<div className="file-input-wrappers">
-										<img
-											className="btn-play btn-img pwsp"
-											src="images/products/product-single/agent/1.jpg"
-											width="800"
-											height="533"
-											alt="product"
-										/>
-										<img
-											className="btn-play btn-img pwsp"
-											src="images/products/product-single/agent/2.jpg"
-											width="800"
-											height="422"
-											alt="product"
-										/>
-										<img
-											className="btn-play btn-img pwsp"
-											src="images/products/product-single/agent/3.jpg"
-											width="800"
-											height="533"
-											alt="product"
-										/>
-									</div>
-									{/* <div className="feeling mt-5">
-										<button className="btn btn-link text-capitalize btn-icon-left btn-slide-up btn-infinite like">
-											<i className="fa fa-thumbs-up mb-1"></i>
-											Helpful (<span className="count">0</span>)
-										</button>
-										<button className="btn btn-link text-capitalize btn-icon-left btn-slide-down btn-infinite unlike">
-											<i className="fa fa-thumbs-down mb-1"></i>
-											Unhelpful (<span className="count">0</span>)
-										</button>
-									</div> */}
-								</div>
-							</div>
-						</li>
-						<li className="mb-1">
-							<div className="comment">
-								<figure className="comment-media">
-									<a href="#">
-										<img
-											src="images/products/product-single/agent/Simple2.jpg"
-											width="100"
-											height="100"
-											alt="avatar"
-										/>
-									</a>
-								</figure>
-
-								<div className="comment-body mt-2 mt-sm-0">
-									<div className="comment-rating ratings-container">
-										<div className="ratings-full">
-											<span
-												className="ratings"
-												style={{ width: "100%" }}
-											></span>
-											<span className="tooltiptext tooltip-top"></span>
-										</div>
-									</div>
-									<div className="comment-user">
-										<span className="comment-date">
-											by{" "}
-											<span className="font-weight-semi-bold text-uppercase text-dim">
-												John Doe
-											</span>{" "}
-											on August 16, 2021
-										</span>
-									</div>
-									<div className="comment-description">Very Good!</div>
-									<div className="comment-content">
-										<p>
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-											sed do eiusmod tempor incididunt ut labore et dolore magna
-											aliqua. Venenatis tellus in metus enenatis tellus in metus
-											vulputate eu scelerisque felis.vulputate eu scelerisque
-											felis.
-										</p>
-									</div>
-									{/* <div className="feeling">
-										<button className="btn btn-link text-capitalize btn-icon-left btn-slide-up btn-infinite like">
-											<i className="fa fa-thumbs-up mb-1"></i>
-											Helpful (<span className="count">0</span>)
-										</button>
-										<button className="btn btn-link text-capitalize btn-icon-left btn-slide-down btn-infinite unlike">
-											<i className="fa fa-thumbs-down mb-1"></i>
-											Unhelpful (<span className="count">0</span>)
-										</button>
-									</div> */}
-								</div>
-							</div>
-						</li>
+								</li>
+							))}
 					</ul>
-					{/* <nav className="toolbox toolbox-pagination justify-content-end">
-						<ul className="pagination">
-							<li className="page-item disabled">
-								<a
-									className="page-link page-link-prev"
-									href="#"
-									aria-label="Previous"
-									tabIndex={-1}
-									aria-disabled="true"
-								>
-									<i className="p-icon-angle-left"></i>
-								</a>
-							</li>
-							<li className="page-item active" aria-current="page">
-								<a className="page-link" href="#">
-									1
-								</a>
-							</li>
-							<li className="page-item">
-								<a className="page-link" href="#">
-									2
-								</a>
-							</li>
-							<li className="page-item page-item-dots"></li>
-							<li className="page-item">
-								<a className="page-link" href="#">
-									5
-								</a>
-							</li>
-							<li className="page-item">
-								<a
-									className="page-link page-link-next"
-									href="#"
-									aria-label="Next"
-								>
-									<i className="p-icon-angle-right"></i>
-								</a>
-							</li>
-						</ul>
-					</nav> */}
 				</div>
 			</div>
+			<Modal
+				classNames={{
+					modal: "review-container",
+				}}
+				center
+				open={showReviewModal}
+				onClose={() => {
+					setShowReviewModal(false);
+				}}
+			>
+				<div className="review-container">
+					<form onSubmit={reviewFormik.handleSubmit}>
+						<h4 className="review-title mb-3">Submit Your Review</h4>
+						<div className="ratings-container">
+							<h6 className="rating-title mb-0">Your Rating Of This Product</h6>
+							<div className="rating-form">
+								<span className="rating-stars selected">
+									<a
+										className="star-1"
+										onClick={() =>
+											reviewFormik.setValues({
+												...reviewFormik.values,
+												rating: 1,
+											})
+										}
+										href="#"
+									/>
+									<a
+										className="star-2"
+										onClick={() =>
+											reviewFormik.setValues({
+												...reviewFormik.values,
+												rating: 2,
+											})
+										}
+										href="#"
+									/>
+									<a
+										className="star-3"
+										onClick={() =>
+											reviewFormik.setValues({
+												...reviewFormik.values,
+												rating: 3,
+											})
+										}
+										href="#"
+									/>
+									<a
+										className="star-4"
+										onClick={() =>
+											reviewFormik.setValues({
+												...reviewFormik.values,
+												rating: 4,
+											})
+										}
+										href="#"
+									/>
+									<a
+										className="star-5 active"
+										onClick={() =>
+											reviewFormik.setValues({
+												...reviewFormik.values,
+												rating: 5,
+											})
+										}
+										href="#"
+									/>
+								</span>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-12 mb-4">
+								<input
+									type="text"
+									name="title"
+									onChange={reviewFormik.handleChange}
+									placeholder="Your TItle Here..."
+									required
+								/>
+							</div>
+							<div className="col-12 mb-4">
+								<textarea
+									required
+									name="comment"
+									onChange={reviewFormik.handleChange}
+									placeholder="Write Your Review Here..."
+									defaultValue={""}
+								/>
+							</div>
+						</div>
+
+						<button type="submit" className="btn btn-dim text-uppercase">
+							Submit Review
+						</button>
+					</form>
+				</div>
+			</Modal>
 		</div>
 	);
 };
