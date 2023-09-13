@@ -11,6 +11,7 @@ export interface Product {
 	category: {
 		name: string;
 	};
+	rating: number;
 	created_at: string;
 	updated_at: string;
 	deleted_at: string;

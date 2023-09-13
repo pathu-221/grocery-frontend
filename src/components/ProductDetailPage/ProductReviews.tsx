@@ -6,14 +6,18 @@ import { addReview, fetchAllreviews } from "../../apis/review.api";
 import showToast from "../../helpers/showToast";
 import { Review } from "../../interfaces/review.interface";
 import { getFormattedDate } from "../../helpers/getFormattedDate";
+import { useLocation } from "react-router";
 
 interface ProductReviewsProps {
 	productId?: string;
 }
 
-const ProductReviews: FC<ProductReviewsProps> = ({ productId }) => {
+const ProductReviews: FC<ProductReviewsProps> = ({}) => {
+	const location = useLocation();
 	const [showReviewModal, setShowReviewModal] = useState(false);
 	const [reviews, setReviews] = useState<Review[]>([]);
+	const urlParams = new URLSearchParams(location.search);
+	const productId = urlParams.get("productId");
 
 	const reviewFormik = useFormik({
 		initialValues: {
@@ -46,6 +50,7 @@ const ProductReviews: FC<ProductReviewsProps> = ({ productId }) => {
 	}, []);
 
 	const loadReviews = async () => {
+		console.log({ productId });
 		const response = await fetchAllreviews(productId || "");
 		if (!response.status) return showToast("danger", response.msg);
 
@@ -73,70 +78,7 @@ const ProductReviews: FC<ProductReviewsProps> = ({ productId }) => {
 										<span className="ratings" style={{ width: "100%" }}></span>
 										<span className="tooltiptext tooltip-top"></span>
 									</div>
-									<span className="rating-reviews">(12)</span>
 								</div>
-							</div>
-						</div>
-						<div className="ratings-list mb-4 mb-lg-8">
-							<div className="ratings-item">
-								<div className="ratings-container mb-0">
-									<div className="ratings-full">
-										<span className="ratings" style={{ width: "70%" }}></span>
-										<span className="tooltiptext tooltip-top"></span>
-									</div>
-								</div>
-								<div className="rating-percent">
-									<span style={{ width: "70%" }}></span>
-								</div>
-								<div className="progress-value">70%</div>
-							</div>
-							<div className="ratings-item">
-								<div className="ratings-container mb-0">
-									<div className="ratings-full">
-										<span className="ratings" style={{ width: "30%" }}></span>
-										<span className="tooltiptext tooltip-top"></span>
-									</div>
-								</div>
-								<div className="rating-percent">
-									<span style={{ width: "30%" }}></span>
-								</div>
-								<div className="progress-value">30%</div>
-							</div>
-							<div className="ratings-item">
-								<div className="ratings-container mb-0">
-									<div className="ratings-full">
-										<span className="ratings" style={{ width: "40%" }}></span>
-										<span className="tooltiptext tooltip-top"></span>
-									</div>
-								</div>
-								<div className="rating-percent">
-									<span style={{ width: "40%" }}></span>
-								</div>
-								<div className="progress-value">40%</div>
-							</div>
-							<div className="ratings-item">
-								<div className="ratings-container mb-0">
-									<div className="ratings-full">
-										<span className="ratings" style={{ width: "0%" }}></span>
-										<span className="tooltiptext tooltip-top"></span>
-									</div>
-								</div>
-								<div className="rating-percent">
-									<span style={{ width: "0%" }}></span>
-								</div>
-								<div className="progress-value">0%</div>
-							</div>
-							<div className="ratings-item">
-								<div className="ratings-container mb-0">
-									<div className="ratings-full">
-										<span className="ratings" style={{ width: "0%" }}></span>
-										<span className="tooltiptext tooltip-top"></span>
-									</div>
-								</div>
-								<div className="rating-percent">
-									<span style={{ width: "0%" }}></span>
-								</div>
-								<div className="progress-value">0%</div>
 							</div>
 						</div>
 						<a className="btn btn-dim" onClick={() => setShowReviewModal(true)}>

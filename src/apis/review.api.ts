@@ -16,7 +16,7 @@ export async function addReview(formData: any) {
 
 export async function fetchAllreviews(productId: string) {
 	const response = await requestWithoutToken(
-		`${import.meta.env.VITE_API_ADDRESS}/review/?productId=${productId}`
+		`${import.meta.env.VITE_API_ADDRESS}/review/?product_id=${productId}`
 	);
 	return response;
 }

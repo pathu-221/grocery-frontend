@@ -73,15 +73,17 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 			<div className="product-details">
 				<div className="ratings-container">
 					<div className="ratings-full">
-						<span className="ratings" style={{ width: "50%" }}></span>
+						<span
+							className="ratings"
+							style={{
+								width: `${
+									(product?.rating == undefined ? 1 : product.rating) * 20
+								}%`,
+							}}
+						></span>
 						<span className="tooltiptext tooltip-top"></span>
 					</div>
-					<a
-						href="product-simple.html#content-reviews"
-						className="rating-reviews"
-					>
-						(12)
-					</a>
+				
 				</div>
 				<h5 className="product-name">
 					<a href="product-simple.html">{product?.name || "Peanuts"}</a>
