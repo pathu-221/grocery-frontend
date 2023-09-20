@@ -26,7 +26,7 @@ const Banner: FC<BannerProps> = () => {
 				<div className="banner banner-fixed banner1">
 					<figure>
 						<img
-							src="images/demos/demo1/intro/slider-1.jpg"
+							src="images/banners/banner_1.jpg"
 							alt="banner"
 							width="1903"
 							height="600"
@@ -69,7 +69,7 @@ const Banner: FC<BannerProps> = () => {
 				<div className="banner banner-fixed banner2">
 					<figure>
 						<img
-							src="images/demos/demo1/intro/slider-2.jpg"
+							src="images/banners/banner_2.jpg"
 							alt="banner"
 							width="1903"
 							height="600"
@@ -77,17 +77,6 @@ const Banner: FC<BannerProps> = () => {
 						/>
 					</figure>
 					<div className="banner-content y-50 pb-1">
-						<img
-							src="images/demos/demo1/intro/brand1.png"
-							width="269"
-							height="75"
-							alt="brand"
-							className="mb-5 slide-animate appear-animate"
-							data-animation-options="{
-                                                    'name': 'fadeIn',
-                                                    'delay': '.2s'
-                                                }"
-						/>
 						<h3
 							className="banner-title text-dark mb-5 mb-sm-9 slide-animate appear-animate"
 							data-animation-options="{

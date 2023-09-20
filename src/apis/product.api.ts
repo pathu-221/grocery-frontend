@@ -14,6 +14,13 @@ export async function fetchAllProducts(
 	return data;
 }
 
+export async function fetchFeaturedProducts() {
+	const data = await requestWithoutToken(
+		`${import.meta.env.VITE_API_ADDRESS}/product/featured`
+	);
+	return data;
+}
+
 export async function fetchProductbyId(productId: string) {
 	const data = await requestWithoutToken(
 		`${import.meta.env.VITE_API_ADDRESS}/product/${productId}`

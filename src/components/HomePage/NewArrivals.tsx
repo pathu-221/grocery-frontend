@@ -1,17 +1,32 @@
-import type { FC } from "react";
+import { type FC, useState, useEffect } from "react";
 import ProductDetails from "../ProductDetails";
+import { Product } from "../../interfaces/product.interface";
+import { fetchAllProducts } from "../../apis/product.api";
+import showToast from "../../helpers/showToast";
 
 interface NewArrivalsProps {}
 
 const NewArrivals: FC<NewArrivalsProps> = () => {
+	const [products, setProducts] = useState<Product[]>([]);
+
+	useEffect(() => {
+		loadNewProducts();
+	}, []);
+
+	const loadNewProducts = async () => {
+		const response = await fetchAllProducts("", "latest", 5, 1);
+		if (!response.status) return showToast("danger", response.msg);
+		setProducts(response.data);
+	};
 	return (
 		<section className="new-section container mt-10 pt-8 appear-animate">
 			<h2 className="title title-underline2 justify-content-center mb-8">
 				<span>New Arrivals</span>
 			</h2>
-			<div
-				className="owl-carousel owl-theme owl-nav-arrow owl-nav-outer owl-nav-image-center row cols-lg-4 cols-md-3 cols-2"
-				data-owl-options="{
+			{products.length && (
+				<div
+					className="owl-carousel owl-theme owl-nav-arrow owl-nav-outer owl-nav-image-center row cols-lg-4 cols-md-3 cols-2"
+					data-owl-options="{
                                     'items': 4,
                                     'nav': false,
                                     'dots': true,
@@ -34,68 +49,12 @@ const NewArrivals: FC<NewArrivalsProps> = () => {
                                         }
                                     }
                                 }"
-			>
-				<ProductDetails />
-				<ProductDetails />
-				<ProductDetails />
-				<ProductDetails />
-			</div>
-			<div className="row mt-10 appear-animate">
-				<div className="col-md-6">
-					<div className="banner banner-fixed banner3 mb-md-0 mb-4">
-						<figure>
-							<img
-								src="images/demos/demo1/banner/banner2.jpg"
-								alt="banner"
-								width="610"
-								height="250"
-								style={{ backgroundColor: "#86786b" }}
-							/>
-						</figure>
-						<div className="banner-content y-50">
-							<h4 className="banner-subtitle font-weight-normal text-white ls-1 mt-1">
-								JUST ARRIVED
-							</h4>
-							<h3 className="banner-title text-white lh-1 mb-3">
-								New DietCoke
-							</h3>
-							<a
-								href="shop.html"
-								className="btn btn-underline btn-link text-white"
-							>
-								Shop Now<i className="p-icon-arrow-long-right pl-1"></i>
-							</a>
-						</div>
-					</div>
+				>
+					{products.map((item) => (
+						<ProductDetails product={item} />
+					))}
 				</div>
-				<div className="col-md-6">
-					<div className="banner banner-fixed banner3">
-						<figure>
-							<img
-								src="images/demos/demo1/banner/banner3.jpg"
-								alt="banner"
-								width="610"
-								height="250"
-								style={{ backgroundColor: "#ddd" }}
-							/>
-						</figure>
-						<div className="banner-content y-50">
-							<h4 className="banner-subtitle font-weight-normal text-dim ls-1 mt-1">
-								BEST SELLING
-							</h4>
-							<h3 className="banner-title text-dark lh-1 mb-3">
-								Special Snack
-							</h3>
-							<a
-								href="shop.html"
-								className="btn btn-underline btn-link text-dark"
-							>
-								Shop Now<i className="p-icon-arrow-long-right pl-1"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
+			)}
 		</section>
 	);
 };

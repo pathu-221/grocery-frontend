@@ -1,18 +1,35 @@
-import type { FC } from "react";
+import { type FC, useState, useEffect } from "react";
 import ProductDetails from "../ProductDetails";
+import { Product } from "../../interfaces/product.interface";
+import showToast from "../../helpers/showToast";
+import { fetchFeaturedProducts } from "../../apis/product.api";
 
 interface FeaturedProps {}
 
 const Featured: FC<FeaturedProps> = () => {
+	const [products, setProducts] = useState<Product[]>([]);
+
+	useEffect(() => {
+		loadNewProducts();
+	}, []);
+
+	const loadNewProducts = async () => {
+		const response = await fetchFeaturedProducts();
+		if (!response.status) return showToast("danger", response.msg);
+		if (response.data.length > 5) response.data.length = 5;
+		setProducts(response.data);
+	};
+
 	return (
 		<section className="feature-section appear-animate">
 			<div className="container mt-10 pt-8 mb-10 pb-2">
 				<h2 className="title title-underline2 justify-content-center mb-8">
 					<span>Our Featured</span>
 				</h2>
-				<div
-					className="owl-carousel owl-theme owl-nav-arrow owl-nav-outer owl-nav-image-center row cols-lg-5 cols-md-3 cols-2"
-					data-owl-options="{
+				{products.length && (
+					<div
+						className="owl-carousel owl-theme owl-nav-arrow owl-nav-outer owl-nav-image-center row cols-lg-5 cols-md-3 cols-2"
+						data-owl-options="{
                                             'items': 5,
                                             'nav': false,
                                             'dots': true,
@@ -35,18 +52,17 @@ const Featured: FC<FeaturedProps> = () => {
                                                 }
                                             }
                                         }"
-				>
-					<ProductDetails />
-					<ProductDetails />
-					<ProductDetails />
-					<ProductDetails />
-					<ProductDetails />
-				</div>
+					>
+						{products.map((item) => (
+							<ProductDetails product={item} />
+						))}
+					</div>
+				)}
 			</div>
 			<div className="banner banner-fixed banner1 appear-animate">
 				<figure>
 					<img
-						src="images/demos/demo1/banner/banner4.jpg"
+						src="images/banners/banner_last.jpg"
 						width="1920"
 						height="500"
 						alt="banner"

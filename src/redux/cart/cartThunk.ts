@@ -1,5 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { deleteItemFromCart, fetchAllCartItems, updateCartItem } from "../../apis/cart.api";
+import {
+	deleteItemFromCart,
+	fetchAllCartItems,
+	updateCartItem,
+} from "../../apis/cart.api";
 import { addItemToCart as addItemToCartApi } from "../../apis/cart.api";
 interface cartApiResponse {
 	data: any;
@@ -33,14 +37,14 @@ export const deleteFromCart = createAsyncThunk<cartApiResponse, string>(
 	}
 );
 
-export const updateCart = createAsyncThunk<cartApiResponse, {
-	carItemId: string,
-	formData: any
-}>(
-	"cart/updateCart",
-	async ({ carItemId, formData}, { rejectWithValue }) => {
-		const data = await updateCartItem(carItemId, formData);
-		if (!data.status) rejectWithValue(data.msg);
-		return data as cartApiResponse;
+export const updateCart = createAsyncThunk<
+	cartApiResponse,
+	{
+		carItemId: string;
+		formData: any;
 	}
-);
+>("cart/updateCart", async ({ carItemId, formData }, { rejectWithValue }) => {
+	const data = await updateCartItem(carItemId, formData);
+	if (!data.status) rejectWithValue(data.msg);
+	return data as cartApiResponse;
+});

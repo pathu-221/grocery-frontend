@@ -95,7 +95,7 @@ const ProductReviews: FC<ProductReviewsProps> = ({}) => {
 										<figure className="comment-media">
 											<a href="#">
 												<img
-													src="images/products/product-single/agent/Simple1.jpg"
+													src={`https://api.dicebear.com/7.x/initials/svg?seed=${review.user.first_name}`}
 													width="100"
 													height="100"
 													alt="avatar"

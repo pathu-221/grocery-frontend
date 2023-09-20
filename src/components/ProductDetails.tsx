@@ -14,6 +14,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const [images, setImages] = useState<string[]>([]);
+
 	useEffect(() => {
 		if (product?.images) setImages(JSON.parse(product?.images));
 		//if (product?.imag	es) setImages(JSON.parse(product?.images));
@@ -34,7 +35,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 					}}
 				>
 					<img
-						src={getImgeUrl(images[0] || " images/products/295x369.jpg")}
+						src={getImgeUrl(images[0] || "images/products/2-295x369.jpg")}
 						alt="product"
 						// width="295px"
 						// height="369px"
@@ -55,7 +56,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 						data-target="#addCartModal"
 						title="Add to Cart"
 						onClick={() => {
-							if (product) dispatch(addToCart(product?.id));
+							dispatch(addToCart(product!.id));
 							dispatch(getCartItems());
 						}}
 					>
@@ -83,7 +84,6 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 						></span>
 						<span className="tooltiptext tooltip-top"></span>
 					</div>
-				
 				</div>
 				<h5 className="product-name">
 					<a href="product-simple.html">{product?.name || "Peanuts"}</a>
