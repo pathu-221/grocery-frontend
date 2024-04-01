@@ -8,7 +8,7 @@ interface ProductContentProps {
 const ProductContent: FC<ProductContentProps> = ({ productId }) => {
 	return (
 		<div className="product-content">
-			<div className="content-specification mt-10 pt-3">
+			<div className="content-specification mt-6 pt-3">
 				<h2 className="title title-line title-underline">
 					<span>Specifications</span>
 				</h2>

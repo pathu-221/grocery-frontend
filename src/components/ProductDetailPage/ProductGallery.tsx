@@ -11,15 +11,17 @@ const ProductGallery: FC<ProductGalleryProps> = ({ images }) => {
 		<div className="">
 			<div className="">
 				{images && (
-					<Carousel infiniteLoop showThumbs showArrows>
+					<Carousel showThumbs={false}>
 						{images.map((image) => (
-							<figure className="product-image">
+							<figure className="">
 								<img
 									src={getImgeUrl(image)}
 									alt="2"
-									style={{ objectFit: "cover" }}
-									width="400"
-									height="400"
+									style={{
+										objectFit: "cover",
+										width: "400px",
+										height: "400px",
+									}}
 								/>
 							</figure>
 						))}
