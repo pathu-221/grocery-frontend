@@ -15,7 +15,7 @@ const FilterOptions: FC<FilterOptionsProps> = ({ onClick }) => {
 	const urlParams = new URLSearchParams(window.location.search);
 
 	const category = urlParams.get("category") || undefined;
-	const [selectedCategories, setSelectedCategories] = useState<string[]>([
+	const [selectedCategories, _] = useState<string[]>([
 		...(category?.split(",") || ""),
 	]);
 
