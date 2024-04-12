@@ -6,6 +6,7 @@ import {
 } from "../../redux/cart/cartThunk";
 import { useAppDispatch } from "../../redux/store";
 import { Link } from "react-router-dom";
+import showToast from "../../helpers/showToast";
 
 interface ProductGalleryDetailsProps {
 	product?: Product;
@@ -54,6 +55,8 @@ const ProductGalleryDetails: FC<ProductGalleryDetailsProps> = ({ product }) => {
 					<button
 						className="btn-product btn-cart ls-normal font-weight-semi-bold"
 						onClick={() => {
+							if (!localStorage.getItem("token"))
+								return showToast("danger", "Login to add item to cart");
 							addToCart();
 						}}
 					>

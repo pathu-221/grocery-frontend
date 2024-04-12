@@ -5,6 +5,7 @@ import { Product } from "../interfaces/product.interface";
 import { addToCart, getCartItems } from "../redux/cart/cartThunk";
 import { useAppDispatch } from "../redux/store";
 import { getImgeUrl } from "../helpers/getImageUrl";
+import showToast from "../helpers/showToast";
 
 interface ProductDetailsProps {
 	product?: Product;
@@ -56,6 +57,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
 						data-target="#addCartModal"
 						title="Add to Cart"
 						onClick={() => {
+							if (!localStorage.getItem("token"))
+								return showToast("danger", "Login to add item to cart");
 							dispatch(addToCart(product!.id));
 							dispatch(getCartItems());
 						}}
