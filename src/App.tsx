@@ -16,12 +16,16 @@ import { useAppDispatch } from "./redux/store.ts";
 import { authenticate } from "./apis/auth.api.ts";
 import { addUser } from "./redux/user/userSlice.ts";
 import { getCartItems } from "./redux/cart/cartThunk.ts";
+import { useNavigate } from "react-router-dom";
 
 function App() {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		loadUser();
+		window.onpopstate = (event) => {
+			location.reload();
+		};
 	}, []);
 
 	const loadUser = async () => {
